@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MetricElite — AI-gedreven Eredivisie Intelligence</title>
-<meta name="description" content="Datagedreven AI-analyses en odds-vergelijking voor de Eredivisie. Voor wedders die meer willen dan een onderbuikgevoel.">
+<title>MetricElite — De kunst van het inzicht</title>
+<meta name="description" content="Datagedreven AI-intelligence voor de Eredivisie. Voor wie verder kijkt dan de uitslag.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,6 @@
     --gold-bright: #e0c685;
     --gold-dim: #8a7440;
     --green: #6ba368;
-    --red: #c94f4f;
     --amber: #d4a847;
 
     --font-display: 'Fraunces', Georgia, serif;
@@ -39,10 +38,8 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-body);
-    font-weight: 400;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
@@ -55,7 +52,6 @@
     position: relative;
   }
 
-  /* Subtle grain texture */
   body::before {
     content: '';
     position: fixed;
@@ -68,610 +64,310 @@
 
   ::selection { background: var(--gold); color: var(--bg); }
 
-  /* ============ HEADER ============ */
   header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 100;
     background: rgba(10, 10, 11, 0.85);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--border);
   }
-
   .header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
+    max-width: 1400px; margin: 0 auto;
     padding: 18px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
-
   .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 2px;
-    text-decoration: none;
-    letter-spacing: -0.02em;
+    display: flex; align-items: baseline; gap: 2px;
+    text-decoration: none; letter-spacing: -0.02em;
   }
   .logo-metric {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 26px;
-    color: var(--text);
-    font-style: italic;
-    font-optical-sizing: auto;
+    font-family: var(--font-display); font-weight: 400; font-size: 26px;
+    color: var(--text); font-style: italic;
     font-variation-settings: "opsz" 144;
   }
   .logo-elite {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 26px;
-    color: var(--gold);
-    font-variation-settings: "opsz" 144;
+    font-family: var(--font-display); font-weight: 600; font-size: 26px;
+    color: var(--gold); font-variation-settings: "opsz" 144;
   }
   .logo-dot {
-    width: 5px;
-    height: 5px;
-    background: var(--gold);
-    border-radius: 50%;
-    margin-left: 6px;
-    align-self: center;
-    transform: translateY(-6px);
+    width: 5px; height: 5px; background: var(--gold); border-radius: 50%;
+    margin-left: 6px; align-self: center; transform: translateY(-6px);
   }
-
-  nav.main-nav {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
+  nav.main-nav { display: flex; gap: 32px; align-items: center; }
   nav.main-nav a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: color 0.2s;
+    color: var(--text-dim); text-decoration: none; font-size: 13px;
+    font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
     position: relative;
   }
-  nav.main-nav a:hover { color: var(--text); }
-  nav.main-nav a.active { color: var(--text); }
+  nav.main-nav a:hover, nav.main-nav a.active { color: var(--text); }
   nav.main-nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    background: var(--gold);
-    border-radius: 50%;
+    content: ''; position: absolute; bottom: -22px; left: 50%;
+    transform: translateX(-50%); width: 4px; height: 4px;
+    background: var(--gold); border-radius: 50%;
   }
-
-  .header-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
+  .header-actions { display: flex; gap: 12px; align-items: center; }
   .btn {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 10px 18px;
-    border-radius: 2px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.02em; padding: 10px 18px; border-radius: 2px;
+    border: 1px solid transparent; cursor: pointer;
+    transition: all 0.2s ease; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
   }
   .btn-ghost {
-    background: transparent;
-    color: var(--text-dim);
-    border-color: var(--border-strong);
+    background: transparent; color: var(--text-dim); border-color: var(--border-strong);
   }
-  .btn-ghost:hover {
-    color: var(--text);
-    border-color: rgba(255,255,255,0.25);
-  }
-  .btn-gold {
-    background: var(--gold);
-    color: #0a0a0b;
-    border-color: var(--gold);
-  }
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .btn-gold { background: var(--gold); color: #0a0a0b; border-color: var(--gold); }
   .btn-gold:hover {
-    background: var(--gold-bright);
-    border-color: var(--gold-bright);
+    background: var(--gold-bright); border-color: var(--gold-bright);
     transform: translateY(-1px);
   }
-  .btn-outline-gold {
-    background: transparent;
-    color: var(--gold);
-    border-color: var(--gold-dim);
-  }
-  .btn-outline-gold:hover {
-    background: rgba(201, 169, 97, 0.08);
-    border-color: var(--gold);
-    color: var(--gold-bright);
-  }
 
-  /* ============ MAIN ============ */
   main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 48px 32px 96px;
-    position: relative;
-    z-index: 2;
+    max-width: 1400px; margin: 0 auto;
+    padding: 48px 32px 96px; position: relative; z-index: 2;
   }
 
-  /* Hero / Eyebrow */
-  .eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-  .eyebrow-line {
-    width: 32px;
-    height: 1px;
-    background: var(--gold);
-  }
+  .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
   .eyebrow-text {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 11px; color: var(--gold);
+    letter-spacing: 0.18em; text-transform: uppercase;
   }
-
   .hero-title {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(40px, 5.5vw, 72px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(40px, 5.5vw, 72px); line-height: 1.02;
+    letter-spacing: -0.025em; margin-bottom: 20px;
     font-variation-settings: "opsz" 144;
   }
-  .hero-title em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--gold);
-  }
+  .hero-title em { font-style: italic; font-weight: 400; color: var(--gold); }
   .hero-sub {
-    color: var(--text-dim);
-    font-size: 16px;
-    max-width: 560px;
-    margin-bottom: 48px;
-    line-height: 1.6;
+    color: var(--text-dim); font-size: 16px;
+    max-width: 560px; margin-bottom: 48px; line-height: 1.6;
   }
 
-  /* ============ STATS BAR ============ */
   .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
     margin-bottom: 56px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   }
-  .stat {
-    padding: 24px 28px;
-    border-right: 1px solid var(--border);
-    position: relative;
-  }
+  .stat { padding: 24px 28px; border-right: 1px solid var(--border); }
   .stat:last-child { border-right: none; }
   .stat-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px;
   }
   .stat-value {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 32px; line-height: 1; letter-spacing: -0.02em;
     font-variation-settings: "opsz" 144;
   }
-  .stat-value .unit {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-left: 4px;
-  }
-  .stat-trend {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--green);
-    margin-top: 6px;
-  }
+  .stat-value .unit { font-size: 14px; color: var(--text-dim); margin-left: 4px; }
 
-  /* ============ SECTION HEAD ============ */
   .section-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    padding-bottom: 16px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 28px; padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
   .section-title {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 32px;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 32px; letter-spacing: -0.02em;
     font-variation-settings: "opsz" 144;
   }
   .section-meta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
   }
 
-  /* ============ FEATURED MATCH (Top Pick) ============ */
   .featured-match {
     background: linear-gradient(135deg, rgba(201, 169, 97, 0.04), rgba(201, 169, 97, 0.01));
-    border: 1px solid var(--border-strong);
-    border-radius: 4px;
-    padding: 40px;
-    margin-bottom: 56px;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid var(--border-strong); border-radius: 4px;
+    padding: 40px; margin-bottom: 56px; position: relative; overflow: hidden;
   }
   .featured-match::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
+    content: ''; position: absolute; top: 0; left: 0;
     width: 100%; height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
   .featured-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 48px;
-    align-items: center;
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 48px; align-items: center;
   }
-
   .featured-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--gold);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
   }
-  .featured-tag::before {
-    content: '★';
-    font-size: 12px;
-  }
-
+  .featured-tag::before { content: '★'; font-size: 12px; }
   .featured-teams {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 24px; margin-bottom: 24px;
   }
-  .team-block { flex: 1; }
-  .team-block.away { text-align: right; }
+  .team-block { flex: 1; display: flex; align-items: center; gap: 14px; }
+  .team-block.away { flex-direction: row-reverse; text-align: right; }
+  .team-crest {
+    width: 44px; height: 44px; object-fit: contain; flex-shrink: 0;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  }
   .team-name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 28px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 22px; letter-spacing: -0.02em; line-height: 1.1;
   }
   .team-meta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
-    margin-top: 4px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-faint); letter-spacing: 0.1em; margin-top: 4px;
   }
   .vs-divider {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 18px;
-    color: var(--gold);
-    font-weight: 300;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; color: var(--gold); font-weight: 300;
   }
-
   .featured-meta {
-    display: flex;
-    gap: 24px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-dim);
+    display: flex; flex-wrap: wrap; gap: 24px;
+    padding-top: 20px; border-top: 1px solid var(--border);
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
   }
-  .featured-meta strong {
-    color: var(--text);
-    font-weight: 500;
-  }
+  .featured-meta strong { color: var(--text); font-weight: 500; }
 
-  /* Score Panel */
   .score-panel {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 28px;
-    position: relative;
+    background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+    border-radius: 4px; padding: 28px;
   }
   .score-panel-title {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
   }
-
   .score-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 18px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 8px;
   }
-  .score-row:last-of-type { margin-bottom: 24px; }
-
-  .score-label {
-    font-size: 13px;
-    color: var(--text-dim);
-    letter-spacing: 0.02em;
-  }
+  .score-label { font-size: 13px; color: var(--text-dim); }
   .score-value {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 28px;
-    color: var(--gold);
-    letter-spacing: -0.02em;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 28px; color: var(--gold); letter-spacing: -0.02em;
   }
-  .score-value .out-of {
-    font-size: 14px;
-    color: var(--text-faint);
-    font-weight: 400;
-  }
-
+  .score-value .out-of { font-size: 14px; color: var(--text-faint); font-weight: 400; }
   .score-bar {
-    height: 2px;
-    background: rgba(255,255,255,0.06);
-    margin-top: 6px;
-    margin-bottom: 18px;
-    position: relative;
-    overflow: hidden;
+    height: 2px; background: rgba(255,255,255,0.06); margin-bottom: 18px;
+    position: relative; overflow: hidden;
   }
   .score-bar-fill {
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%;
+    position: absolute; top: 0; left: 0; height: 100%;
     background: linear-gradient(90deg, var(--gold-dim), var(--gold));
     transition: width 1s ease;
   }
-
   .editor-tip {
-    font-style: italic;
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--text);
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
+    font-style: italic; font-family: var(--font-display);
+    font-weight: 300; font-size: 15px; line-height: 1.55;
+    color: var(--text); padding-top: 20px;
+    border-top: 1px solid var(--border); margin-top: 4px;
     font-variation-settings: "opsz" 144;
   }
   .editor-tip::before {
-    content: '"';
-    font-size: 32px;
-    color: var(--gold);
-    line-height: 0;
-    position: relative;
-    top: 8px;
-    margin-right: 4px;
+    content: '"'; font-size: 32px; color: var(--gold);
+    line-height: 0; position: relative; top: 8px; margin-right: 4px;
   }
 
-  /* ============ MATCH CARDS GRID ============ */
   .matches-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
   }
-
   .match-card {
-    background: var(--bg-card);
-    padding: 24px 28px;
-    transition: background 0.2s ease;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    background: var(--bg-card); padding: 24px 28px;
+    transition: background 0.2s ease; cursor: pointer;
+    display: flex; flex-direction: column; gap: 16px;
   }
-  .match-card:hover {
-    background: var(--bg-card-hover);
-  }
-
+  .match-card:hover { background: var(--bg-card-hover); }
   .match-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.15em; text-transform: uppercase;
   }
-
-  .match-teams {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .match-teams { display: flex; flex-direction: column; gap: 6px; }
   .match-team {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .match-team-info {
+    display: flex; align-items: center; gap: 10px;
+    flex: 1; min-width: 0;
+  }
+  .match-team-crest {
+    width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
   }
   .match-team-name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 17px; letter-spacing: -0.01em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .match-team-odds {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-dim);
+    font-family: var(--font-mono); font-size: 14px; font-weight: 500;
+    color: var(--text-dim); flex-shrink: 0;
   }
-  .match-team-odds.best {
-    color: var(--gold);
-  }
-
+  .match-team-odds.best { color: var(--gold); }
   .match-draw {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0;
-    border-top: 1px dashed var(--border);
-    border-bottom: 1px dashed var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0 6px 32px;
+    border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
   }
   .match-draw-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
   }
-  .match-draw-odds {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-dim);
-  }
-
+  .match-draw-odds { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
+  .match-draw-odds.best { color: var(--gold); }
   .match-scores {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    padding-top: 4px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 4px;
   }
-  .match-score {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  .match-score { display: flex; flex-direction: column; gap: 4px; }
   .match-score-label {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--text-faint);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 9px; color: var(--text-faint);
+    letter-spacing: 0.15em; text-transform: uppercase;
   }
   .match-score-value {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 22px;
-    color: var(--gold);
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: baseline;
-    gap: 2px;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 22px; color: var(--gold); letter-spacing: -0.02em;
+    display: flex; align-items: baseline; gap: 2px;
   }
-  .match-score-value .out {
-    font-size: 11px;
-    color: var(--text-faint);
-    font-weight: 400;
-  }
-
+  .match-score-value .out { font-size: 11px; color: var(--text-faint); font-weight: 400; }
   .match-tip {
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--text-dim);
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-    font-style: italic;
-    font-family: var(--font-display);
-    font-weight: 300;
+    font-size: 13px; line-height: 1.55; color: var(--text-dim);
+    padding-top: 12px; border-top: 1px solid var(--border);
+    font-style: italic; font-family: var(--font-display); font-weight: 300;
   }
-
   .match-cta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px; border-top: 1px solid var(--border);
   }
   .match-bookmaker {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
   }
   .match-unlock {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px;
   }
   .match-unlock .lock {
     width: 10px; height: 10px;
-    border: 1px solid var(--gold);
-    border-radius: 1px;
-    position: relative;
+    border: 1px solid var(--gold); border-radius: 1px; position: relative;
   }
   .match-unlock .lock::before {
-    content: '';
-    position: absolute;
-    top: -4px; left: 50%;
-    transform: translateX(-50%);
-    width: 6px; height: 4px;
-    border: 1px solid var(--gold);
-    border-bottom: none;
+    content: ''; position: absolute; top: -4px; left: 50%;
+    transform: translateX(-50%); width: 6px; height: 4px;
+    border: 1px solid var(--gold); border-bottom: none;
     border-radius: 3px 3px 0 0;
   }
-
-  /* ============ LOADING / EMPTY STATES ============ */
-  .loading, .error {
-    text-align: center;
-    padding: 80px 20px;
-    color: var(--text-dim);
+  .match-no-odds {
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+    text-align: center; padding: 20px 0; font-style: italic;
   }
+
+  .loading, .error { text-align: center; padding: 80px 20px; color: var(--text-dim); }
   .loading-pulse {
-    display: inline-block;
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    position: relative;
-    overflow: hidden;
+    display: inline-block; width: 40px; height: 1px; background: var(--gold);
+    position: relative; overflow: hidden;
   }
   .loading-pulse::after {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
     animation: pulse 1.5s infinite;
   }
@@ -680,221 +376,114 @@
     100% { transform: translateX(100%); }
   }
 
-  /* ============ MODAL ============ */
   .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(8px);
-    z-index: 200;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    opacity: 0;
-    transition: opacity 0.3s;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px); z-index: 200;
+    display: none; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; transition: opacity 0.3s;
   }
-  .modal-overlay.active {
-    display: flex;
-    opacity: 1;
-  }
+  .modal-overlay.active { display: flex; opacity: 1; }
   .modal {
-    background: var(--bg-elev);
-    border: 1px solid var(--border-strong);
-    border-radius: 4px;
-    max-width: 520px;
-    width: 100%;
-    padding: 48px;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform 0.3s;
+    background: var(--bg-elev); border: 1px solid var(--border-strong);
+    border-radius: 4px; max-width: 520px; width: 100%; padding: 48px;
+    position: relative; transform: translateY(20px); transition: transform 0.3s;
   }
-  .modal-overlay.active .modal {
-    transform: translateY(0);
-  }
+  .modal-overlay.active .modal { transform: translateY(0); }
   .modal::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
+    content: ''; position: absolute; top: 0; left: 0;
     width: 100%; height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
   .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: var(--text-faint);
-    font-size: 24px;
-    cursor: pointer;
-    line-height: 1;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: none; color: var(--text-faint);
+    font-size: 24px; cursor: pointer; line-height: 1;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
     transition: color 0.2s;
   }
   .modal-close:hover { color: var(--text); }
-
   .modal-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--gold);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
   }
   .modal-title {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-    font-variation-settings: "opsz" 144;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 32px; line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 12px; font-variation-settings: "opsz" 144;
   }
   .modal-title em { font-style: italic; color: var(--gold); }
   .modal-sub {
-    color: var(--text-dim);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 32px;
+    color: var(--text-dim); font-size: 14px;
+    line-height: 1.6; margin-bottom: 32px;
   }
-
-  .modal-features {
-    list-style: none;
-    margin-bottom: 32px;
-  }
+  .modal-features { list-style: none; margin-bottom: 32px; }
   .modal-features li {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; color: var(--text);
+    display: flex; align-items: center; gap: 12px;
   }
-  .modal-features li::before {
-    content: '✦';
-    color: var(--gold);
-    font-size: 12px;
-  }
-
-  .form-group {
-    margin-bottom: 16px;
-  }
+  .modal-features li::before { content: '✦'; color: var(--gold); font-size: 12px; }
+  .form-group { margin-bottom: 16px; }
   .form-label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+    display: block; font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-faint); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 8px;
   }
   .form-input {
-    width: 100%;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--border-strong);
-    color: var(--text);
-    padding: 14px 16px;
-    border-radius: 2px;
-    font-family: var(--font-body);
-    font-size: 14px;
+    width: 100%; background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border-strong); color: var(--text);
+    padding: 14px 16px; border-radius: 2px;
+    font-family: var(--font-body); font-size: 14px;
     transition: border-color 0.2s;
   }
-  .form-input:focus {
-    outline: none;
-    border-color: var(--gold-dim);
-  }
-
+  .form-input:focus { outline: none; border-color: var(--gold-dim); }
   .modal-cta {
-    width: 100%;
-    margin-top: 16px;
-    padding: 16px;
-    font-size: 14px;
-    justify-content: center;
+    width: 100%; margin-top: 16px; padding: 16px;
+    font-size: 14px; justify-content: center;
   }
-
   .modal-foot {
-    text-align: center;
-    margin-top: 20px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
+    text-align: center; margin-top: 20px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-faint); letter-spacing: 0.1em;
   }
+  .modal-foot a { color: var(--gold); text-decoration: none; }
 
-  /* ============ FOOTER ============ */
   footer {
     border-top: 1px solid var(--border);
-    padding: 48px 32px 32px;
-    margin-top: 96px;
-    position: relative;
-    z-index: 2;
+    padding: 48px 32px 32px; margin-top: 96px;
+    position: relative; z-index: 2;
   }
   .footer-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 48px;
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
   }
   .footer-col h4 {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    font-weight: 500;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-faint); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 16px; font-weight: 500;
   }
-  .footer-col p {
-    color: var(--text-dim);
-    font-size: 13px;
-    line-height: 1.6;
-  }
+  .footer-col p { color: var(--text-dim); font-size: 13px; line-height: 1.6; }
   .footer-col a {
-    display: block;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 13px;
-    margin-bottom: 10px;
-    transition: color 0.2s;
+    display: block; color: var(--text-dim); text-decoration: none;
+    font-size: 13px; margin-bottom: 10px; transition: color 0.2s;
   }
   .footer-col a:hover { color: var(--text); }
-
   .footer-disclaimer {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-    line-height: 1.7;
-    letter-spacing: 0.02em;
+    max-width: 1400px; margin: 0 auto;
+    padding-top: 24px; border-top: 1px solid var(--border);
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-faint); line-height: 1.7;
   }
-  .footer-disclaimer strong {
-    color: var(--amber);
-    font-weight: 500;
-  }
+  .footer-disclaimer strong { color: var(--amber); font-weight: 500; }
 
-  /* ============ ANIMATIONS ============ */
   .fade-up {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 0; transform: translateY(20px);
     animation: fadeUp 0.8s ease forwards;
   }
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-  /* ============ RESPONSIVE ============ */
   @media (max-width: 900px) {
     .header-inner { padding: 14px 20px; gap: 12px; }
     nav.main-nav { display: none; }
@@ -915,7 +504,7 @@
 
 <header>
   <div class="header-inner">
-    <a href="/" class="logo" aria-label="MetricElite">
+    <a href="/" class="logo">
       <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
       <span class="logo-dot"></span>
     </a>
@@ -927,55 +516,50 @@
     </nav>
     <div class="header-actions">
       <button class="btn btn-ghost" onclick="openModal('login')">Inloggen</button>
-      <button class="btn btn-gold" onclick="openModal('upgrade')">Upgrade naar Premium</button>
+      <button class="btn btn-gold" onclick="openModal('upgrade')">Premium</button>
     </div>
   </div>
 </header>
 
 <main>
-
-  <!-- HERO -->
   <section class="fade-up" style="margin-bottom: 48px;">
     <div class="eyebrow">
       <span class="eyebrow-line"></span>
-      <span class="eyebrow-text">Eredivisie · Speelronde Live</span>
+      <span class="eyebrow-text" id="eyebrow-meta">Eredivisie · Live</span>
     </div>
     <h1 class="hero-title">
-      Slimmer wedden.<br>
-      <em>Niet harder gokken.</em>
+      De kunst van het<br>
+      <em>inzicht.</em>
     </h1>
     <p class="hero-sub">
-      MetricElite combineert live odds van vier topbookmakers met AI-analyse op basis van data.
-      Voor wedders die de markt willen verslaan, niet erop willen hopen.
+      MetricElite combineert live odds van vier topbookmakers met datagedreven AI-analyse.
+      Voor wie verder kijkt dan de uitslag.
     </p>
   </section>
 
-  <!-- STATS BAR -->
   <section class="stats-bar fade-up" style="animation-delay: 0.1s;">
     <div class="stat">
-      <div class="stat-label">Wedstrijden Geanalyseerd</div>
+      <div class="stat-label">Wedstrijden</div>
       <div class="stat-value" id="stat-matches">—</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Bookmakers Vergeleken</div>
+      <div class="stat-label">Bookmakers</div>
       <div class="stat-value">4<span class="unit">live</span></div>
     </div>
     <div class="stat">
-      <div class="stat-label">Gem. Edge t.o.v. Markt</div>
-      <div class="stat-value">+4.2<span class="unit">%</span></div>
-      <div class="stat-trend">↗ laatste 30 dagen</div>
+      <div class="stat-label">Beste Value Index</div>
+      <div class="stat-value" id="stat-best-value">—</div>
     </div>
     <div class="stat">
-      <div class="stat-label">AI Confidence Avg.</div>
-      <div class="stat-value">71<span class="unit">/100</span></div>
+      <div class="stat-label">Laatste update</div>
+      <div class="stat-value" id="stat-updated" style="font-size: 18px;">—</div>
     </div>
   </section>
 
-  <!-- FEATURED -->
   <section style="margin-bottom: 56px;">
     <div class="section-head">
       <h2 class="section-title">Tip van de redactie</h2>
-      <span class="section-meta">★ Highest Edge · Vandaag</span>
+      <span class="section-meta">★ Highest Edge</span>
     </div>
     <div id="featured-container">
       <div class="loading">
@@ -985,34 +569,29 @@
     </div>
   </section>
 
-  <!-- ALL MATCHES -->
   <section>
     <div class="section-head">
       <h2 class="section-title">Aankomende wedstrijden</h2>
       <span class="section-meta" id="matches-count">— wedstrijden</span>
     </div>
-    <div id="matches-container" class="matches-grid">
-      <!-- skeleton cards -->
-    </div>
+    <div id="matches-container" class="matches-grid"></div>
   </section>
-
 </main>
 
-<!-- ============ UPGRADE MODAL ============ -->
 <div class="modal-overlay" id="modal-upgrade">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('upgrade')">×</button>
     <div class="modal-eyebrow">★ MetricElite Premium</div>
-    <h2 class="modal-title">Krijg de <em>volledige</em> analyse.</h2>
+    <h2 class="modal-title">Het <em>volledige</em> inzicht.</h2>
     <p class="modal-sub">
-      Toegang tot diepere statistieken, AI-voorspellingen per uitkomst,
-      historische form-trends en exclusieve insights die het verschil maken.
+      Diepere statistieken, AI-voorspellingen per uitkomst, form-trends en exclusieve insights
+      die het verschil maken voor wie de markt serieus neemt.
     </p>
     <ul class="modal-features">
       <li>Volledige AI-analyse per wedstrijd in het Nederlands</li>
       <li>Voorspelde score & uitkomst met onderbouwing</li>
       <li>Form-trends & head-to-head statistieken</li>
-      <li>Real-time odds-alerts bij bewegingen</li>
+      <li>Real-time alerts bij oddsbewegingen</li>
       <li>Toegang tot alle competities (Q3 2026)</li>
     </ul>
     <div class="form-group">
@@ -1026,7 +605,6 @@
   </div>
 </div>
 
-<!-- ============ LOGIN MODAL ============ -->
 <div class="modal-overlay" id="modal-login">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('login')">×</button>
@@ -1042,7 +620,7 @@
       <input type="password" class="form-input" placeholder="••••••••">
     </div>
     <button class="btn btn-gold modal-cta" onclick="mockLogin()">Inloggen</button>
-    <div class="modal-foot">NOG GEEN ACCOUNT? · <a href="#" onclick="closeModal('login'); openModal('upgrade'); return false;" style="color: var(--gold);">UPGRADE</a></div>
+    <div class="modal-foot">NOG GEEN ACCOUNT? · <a href="#" onclick="closeModal('login'); openModal('upgrade'); return false;">UPGRADE</a></div>
   </div>
 </div>
 
@@ -1053,7 +631,7 @@
         <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
         <span class="logo-dot"></span>
       </a>
-      <p>Datagedreven AI-intelligence voor wedders die de markt serieus nemen. Eredivisie eerst, daarna Europa.</p>
+      <p>Datagedreven AI-intelligence voor wie de markt serieus neemt. Eredivisie eerst, daarna Europa.</p>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
@@ -1078,20 +656,16 @@
     </div>
   </div>
   <div class="footer-disclaimer">
-    <strong>Verantwoord gokken — 18+ Wat kost het jou?</strong>
-    MetricElite biedt informatieve analyses, geen garanties. Wedden kan verslavend zijn.
+    <strong>Verantwoord deelnemen — 18+ Wat kost het jou?</strong>
+    MetricElite biedt informatieve analyses, geen garanties. Deelname kan verslavend zijn.
     Speel bewust en alleen met geld dat je kunt missen. Hulp nodig? Bel <strong>0900-2177721</strong> (Loket Kansspel).
     © 2026 MetricElite. Alle rechten voorbehouden.
   </div>
 </footer>
 
 <script>
-  // ========== API CONFIG ==========
-  const API_BASE = '/.netlify/functions';
-  const COMBINED_ENDPOINT = `${API_BASE}/combined`;
-  const ANALYZE_ENDPOINT = `${API_BASE}/analyze`;
+  const COMBINED_ENDPOINT = '/.netlify/functions/combined';
 
-  // ========== MODAL HELPERS ==========
   function openModal(name) {
     document.getElementById(`modal-${name}`).classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1102,7 +676,7 @@
   }
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => {
-      if (e.target === o) o.classList.remove('active'), document.body.style.overflow = '';
+      if (e.target === o) { o.classList.remove('active'); document.body.style.overflow = ''; }
     });
   });
   document.addEventListener('keydown', e => {
@@ -1114,10 +688,7 @@
 
   function mockUpgrade() {
     const email = document.getElementById('upgrade-email').value;
-    if (!email || !email.includes('@')) {
-      alert('Vul een geldig e-mailadres in.');
-      return;
-    }
+    if (!email || !email.includes('@')) { alert('Vul een geldig e-mailadres in.'); return; }
     alert(`Bedankt! In de demo gebeurt verder niets.\n\nIn productie zou je nu naar Stripe Checkout gaan voor: ${email}`);
     closeModal('upgrade');
   }
@@ -1126,12 +697,12 @@
     closeModal('login');
   }
 
-  // ========== DATA FETCHING ==========
   async function loadData() {
     try {
       const res = await fetch(COMBINED_ENDPOINT);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      console.log('MetricElite data:', data);
       renderData(data);
     } catch (err) {
       console.error('Fetch error:', err);
@@ -1139,70 +710,40 @@
     }
   }
 
-  // ========== EDGE SCORE COMPUTATION ==========
-  // Value Index = hoe goed de odds zijn t.o.v. de marktconsensus (0-100)
-  // Confidence = hoe zeker AI is van de uitkomst (0-100)
-  function computeScores(match) {
-    const odds = match.odds || {};
-    const home = parseFloat(odds.home) || 0;
-    const draw = parseFloat(odds.draw) || 0;
-    const away = parseFloat(odds.away) || 0;
-
-    if (!home || !draw || !away) {
-      return { value: 0, confidence: 0, pick: '—', bestBookmaker: '—' };
-    }
-
-    // Implied probabilities
-    const pH = 1/home, pD = 1/draw, pA = 1/away;
-    const total = pH + pD + pA;
-    const margin = (total - 1) * 100; // bookmaker overround
-
-    // Value index: lower margin = better value for bettor
-    // Most books run 4-8% margin; below 5% is excellent
-    const value = Math.max(0, Math.min(100, Math.round(100 - (margin * 12))));
-
-    // Confidence: hoe groot is de favoriet? (gap tussen hoogste en laagste prob)
-    const probs = [pH/total, pD/total, pA/total];
-    const maxProb = Math.max(...probs);
-    const confidence = Math.round(maxProb * 100);
-
-    // Pick
-    const idx = probs.indexOf(maxProb);
-    const pick = ['1 (thuis)', 'X (gelijk)', '2 (uit)'][idx];
-
+  // Pak de beste odds (hoogste decimal) per uitkomst uit de bestOdds structuur
+  function getBestOdds(matchOdds) {
+    if (!matchOdds || !matchOdds.bestOdds) return null;
+    const b = matchOdds.bestOdds;
     return {
-      value,
-      confidence,
-      pick,
-      bestBookmaker: odds.bookmaker || 'Unibet',
-      home, draw, away,
-      bestOutcome: ['home','draw','away'][idx]
+      home: b.home?.odds || 0,
+      homeBookie: b.home?.bookmaker || '—',
+      draw: b.draw?.odds || 0,
+      drawBookie: b.draw?.bookmaker || '—',
+      away: b.away?.odds || 0,
+      awayBookie: b.away?.bookmaker || '—'
     };
   }
 
-  // ========== RENDERING ==========
-  function renderData(data) {
-    const matches = (data.matches || []).filter(m => m.odds && m.odds.home);
-    if (!matches.length) {
-      renderError('Geen aankomende wedstrijden met odds gevonden.');
-      return;
+  function computeScores(match) {
+    const best = getBestOdds(match.odds);
+    if (!best || !best.home || !best.draw || !best.away) {
+      return { value: 0, confidence: 0, pick: '—', bestOutcome: 'home', best: null };
     }
+    const pH = 1/best.home, pD = 1/best.draw, pA = 1/best.away;
+    const total = pH + pD + pA;
+    const margin = (total - 1) * 100;
 
-    // Compute scores for each
-    matches.forEach(m => m.scores = computeScores(m));
+    // Bij beste-odds aggregatie loopt marge tussen ~0% en 5%. We mappen 0->100, 5->0
+    const value = Math.max(0, Math.min(100, Math.round(100 - (margin * 20))));
 
-    // Sort by value index (highest = best edge)
-    matches.sort((a, b) => b.scores.value - a.scores.value);
+    const probs = [pH/total, pD/total, pA/total];
+    const maxProb = Math.max(...probs);
+    const confidence = Math.round(maxProb * 100);
+    const idx = probs.indexOf(maxProb);
+    const pick = ['1', 'X', '2'][idx];
+    const bestOutcome = ['home','draw','away'][idx];
 
-    // Update stat
-    document.getElementById('stat-matches').innerHTML = matches.length + '<span class="unit">live</span>';
-    document.getElementById('matches-count').textContent = `${matches.length} wedstrijden`;
-
-    // Featured = top match
-    renderFeatured(matches[0]);
-
-    // Rest in grid
-    renderGrid(matches.slice(1));
+    return { value, confidence, pick, bestOutcome, best };
   }
 
   function formatDate(iso) {
@@ -1212,40 +753,92 @@
     const months = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
     return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} · ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
   }
+  function formatUpdated(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+  }
 
-  function shortTip(match) {
-    const s = match.scores;
+  function shortTip(match, scores) {
+    const homeName = match.homeTeam?.shortName || match.homeTeam?.name || 'Thuisploeg';
+    const awayName = match.awayTeam?.shortName || match.awayTeam?.name || 'Uitploeg';
     const tips = {
-      home: `Thuisploeg ${match.homeTeam} geldt als duidelijke favoriet bij de meeste bookmakers — de markt is hier opvallend eensgezind.`,
-      draw: `De markt twijfelt: de odds liggen dicht bij elkaar wat een open wedstrijd suggereert. X kan waarde bieden.`,
-      away: `${match.awayTeam} wordt verrassend hoog ingeschat door de bookmakers — een interessante uitwedstrijd om te volgen.`
+      home: `${homeName} geldt thuis als de duidelijke favoriet — de markt is opvallend eensgezind.`,
+      draw: `De odds liggen dicht bij elkaar; een open wedstrijd waarin een gelijkspel waarde kan bieden.`,
+      away: `${awayName} wordt verrassend hoog ingeschat — een interessante uitwedstrijd om scherp te volgen.`
     };
-    return tips[s.bestOutcome] || tips.home;
+    return tips[scores.bestOutcome] || tips.home;
+  }
+
+  function renderData(data) {
+    const allMatches = data.matches || [];
+    const withOdds = allMatches.filter(m => m.odds && m.odds.bestOdds);
+
+    if (!allMatches.length) {
+      renderError('Geen aankomende wedstrijden gevonden.');
+      return;
+    }
+
+    withOdds.forEach(m => m.scores = computeScores(m));
+    const sortedByValue = [...withOdds].sort((a, b) => b.scores.value - a.scores.value);
+
+    document.getElementById('stat-matches').innerHTML = `${allMatches.length}<span class="unit">live</span>`;
+    document.getElementById('matches-count').textContent = `${allMatches.length} wedstrijden`;
+    document.getElementById('stat-best-value').innerHTML = sortedByValue.length
+      ? `${sortedByValue[0].scores.value}<span class="unit">/100</span>`
+      : '—';
+    document.getElementById('stat-updated').textContent = formatUpdated(data.lastUpdated);
+    document.getElementById('eyebrow-meta').textContent =
+      `${data.competition || 'Eredivisie'} · Speelronde ${withOdds[0]?.matchday || ''} · ${allMatches.length} wedstrijden`;
+
+    if (sortedByValue.length) {
+      renderFeatured(sortedByValue[0]);
+    } else {
+      document.getElementById('featured-container').innerHTML = `
+        <div class="error">Nog geen odds beschikbaar voor deze speelronde.</div>`;
+    }
+
+    const featuredId = sortedByValue[0]?.id;
+    const gridMatches = allMatches
+      .filter(m => m.id !== featuredId)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+    renderGrid(gridMatches);
   }
 
   function renderFeatured(match) {
     const s = match.scores;
-    const container = document.getElementById('featured-container');
-    container.innerHTML = `
+    const home = match.homeTeam;
+    const away = match.awayTeam;
+    const bookieDisplay = (s.best.homeBookie === s.best.awayBookie && s.best.homeBookie === s.best.drawBookie)
+      ? s.best.homeBookie
+      : 'gespreid';
+
+    document.getElementById('featured-container').innerHTML = `
       <div class="featured-match">
         <div class="featured-grid">
           <div>
             <div class="featured-tag">Top pick · Highest Value Index</div>
             <div class="featured-teams">
               <div class="team-block">
-                <div class="team-name">${match.homeTeam}</div>
-                <div class="team-meta">THUIS · ${s.home.toFixed(2)}</div>
+                ${home.crest ? `<img src="${home.crest}" alt="${home.name}" class="team-crest" onerror="this.style.display='none'">` : ''}
+                <div>
+                  <div class="team-name">${home.shortName || home.name}</div>
+                  <div class="team-meta">THUIS · ${s.best.home.toFixed(2)}</div>
+                </div>
               </div>
               <div class="vs-divider">vs</div>
               <div class="team-block away">
-                <div class="team-name">${match.awayTeam}</div>
-                <div class="team-meta">UIT · ${s.away.toFixed(2)}</div>
+                ${away.crest ? `<img src="${away.crest}" alt="${away.name}" class="team-crest" onerror="this.style.display='none'">` : ''}
+                <div>
+                  <div class="team-name">${away.shortName || away.name}</div>
+                  <div class="team-meta">UIT · ${s.best.away.toFixed(2)}</div>
+                </div>
               </div>
             </div>
             <div class="featured-meta">
-              <span><strong>${formatDate(match.utcDate)}</strong></span>
-              <span>Gelijkspel <strong>${s.draw.toFixed(2)}</strong></span>
-              <span>Beste odds: <strong>${s.bestBookmaker}</strong></span>
+              <span><strong>${formatDate(match.date)}</strong></span>
+              <span>X <strong>${s.best.draw.toFixed(2)}</strong></span>
+              <span>Beste odds: <strong>${bookieDisplay}</strong></span>
             </div>
           </div>
           <div class="score-panel">
@@ -1261,7 +854,7 @@
             </div>
             <div class="score-bar"><div class="score-bar-fill" style="width: ${s.confidence}%"></div></div>
             <div class="editor-tip">
-              ${shortTip(match)} Onze AI ziet ${s.pick} als waarschijnlijkste uitkomst.
+              ${shortTip(match, s)} Onze AI ziet <strong style="color: var(--gold); font-style: normal;">${s.pick}</strong> als waarschijnlijkste uitkomst.
             </div>
           </div>
         </div>
@@ -1272,29 +865,68 @@
   function renderGrid(matches) {
     const container = document.getElementById('matches-container');
     if (!matches.length) {
-      container.innerHTML = `<div class="loading">Geen extra wedstrijden te tonen.</div>`;
+      container.innerHTML = '';
+      container.style.border = 'none';
       return;
     }
     container.innerHTML = matches.map(match => {
+      const home = match.homeTeam;
+      const away = match.awayTeam;
+      const hasOdds = match.odds && match.odds.bestOdds;
+
+      if (!hasOdds) {
+        return `
+          <div class="match-card" onclick="openModal('upgrade')">
+            <div class="match-header">
+              <span>${formatDate(match.date)}</span>
+              <span>SPEELRONDE ${match.matchday || '—'}</span>
+            </div>
+            <div class="match-teams">
+              <div class="match-team">
+                <div class="match-team-info">
+                  ${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
+                  <span class="match-team-name">${home.shortName || home.name}</span>
+                </div>
+                <span class="match-team-odds">—</span>
+              </div>
+              <div class="match-team">
+                <div class="match-team-info">
+                  ${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
+                  <span class="match-team-name">${away.shortName || away.name}</span>
+                </div>
+                <span class="match-team-odds">—</span>
+              </div>
+            </div>
+            <div class="match-no-odds">Odds nog niet beschikbaar</div>
+          </div>
+        `;
+      }
+
       const s = match.scores;
       return `
         <div class="match-card" onclick="openModal('upgrade')">
           <div class="match-header">
-            <span>${formatDate(match.utcDate)}</span>
-            <span>EREDIVISIE</span>
+            <span>${formatDate(match.date)}</span>
+            <span>SPEELRONDE ${match.matchday || '—'}</span>
           </div>
           <div class="match-teams">
             <div class="match-team">
-              <span class="match-team-name">${match.homeTeam}</span>
-              <span class="match-team-odds ${s.bestOutcome === 'home' ? 'best' : ''}">${s.home.toFixed(2)}</span>
+              <div class="match-team-info">
+                ${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
+                <span class="match-team-name">${home.shortName || home.name}</span>
+              </div>
+              <span class="match-team-odds ${s.bestOutcome === 'home' ? 'best' : ''}">${s.best.home.toFixed(2)}</span>
             </div>
             <div class="match-draw">
               <span class="match-draw-label">Gelijkspel</span>
-              <span class="match-draw-odds ${s.bestOutcome === 'draw' ? 'best' : ''}">${s.draw.toFixed(2)}</span>
+              <span class="match-draw-odds ${s.bestOutcome === 'draw' ? 'best' : ''}">${s.best.draw.toFixed(2)}</span>
             </div>
             <div class="match-team">
-              <span class="match-team-name">${match.awayTeam}</span>
-              <span class="match-team-odds ${s.bestOutcome === 'away' ? 'best' : ''}">${s.away.toFixed(2)}</span>
+              <div class="match-team-info">
+                ${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
+                <span class="match-team-name">${away.shortName || away.name}</span>
+              </div>
+              <span class="match-team-odds ${s.bestOutcome === 'away' ? 'best' : ''}">${s.best.away.toFixed(2)}</span>
             </div>
           </div>
           <div class="match-scores">
@@ -1307,9 +939,9 @@
               <span class="match-score-value">${s.confidence}<span class="out">/100</span></span>
             </div>
           </div>
-          <div class="match-tip">${shortTip(match)}</div>
+          <div class="match-tip">${shortTip(match, s)}</div>
           <div class="match-cta">
-            <span class="match-bookmaker">VIA ${s.bestBookmaker.toUpperCase()}</span>
+            <span class="match-bookmaker">BESTE 1: ${s.best.homeBookie.toUpperCase()}</span>
             <span class="match-unlock">
               <span class="lock"></span>
               Volledige analyse
@@ -1323,19 +955,16 @@
   function renderError(msg) {
     const fc = document.getElementById('featured-container');
     const mc = document.getElementById('matches-container');
-    const html = `
+    fc.innerHTML = `
       <div class="error" style="padding: 60px 20px; border: 1px solid var(--border); border-radius: 4px;">
         <div style="font-family: var(--font-mono); font-size: 11px; color: var(--amber); letter-spacing: 0.15em; margin-bottom: 12px;">⚠ DATA TIJDELIJK NIET BESCHIKBAAR</div>
         <p style="color: var(--text-dim);">${msg}</p>
-        <p style="color: var(--text-faint); font-size: 12px; margin-top: 12px;">Controleer je Netlify Functions of probeer het zo opnieuw.</p>
       </div>
     `;
-    fc.innerHTML = html;
     mc.innerHTML = '';
     mc.style.border = 'none';
   }
 
-  // ========== INIT ==========
   loadData();
 </script>
 
