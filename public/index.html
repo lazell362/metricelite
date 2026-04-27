@@ -1,16 +1,1343 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <title>MetricElite – Backend actief</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetricElite — AI-gedreven Eredivisie Intelligence</title>
+<meta name="description" content="Datagedreven AI-analyses en odds-vergelijking voor de Eredivisie. Voor wedders die meer willen dan een onderbuikgevoel.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-elev: #111113;
+    --bg-card: #131316;
+    --bg-card-hover: #18181c;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --text: #f4f1ea;
+    --text-dim: #9a958a;
+    --text-faint: #5a564f;
+    --gold: #c9a961;
+    --gold-bright: #e0c685;
+    --gold-dim: #8a7440;
+    --green: #6ba368;
+    --red: #c94f4f;
+    --amber: #d4a847;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Manrope', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201, 169, 97, 0.08), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201, 169, 97, 0.04), transparent 60%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Subtle grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  ::selection { background: var(--gold); color: var(--bg); }
+
+  /* ============ HEADER ============ */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 11, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo-metric {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 26px;
+    color: var(--text);
+    font-style: italic;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 144;
+  }
+  .logo-elite {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    color: var(--gold);
+    font-variation-settings: "opsz" 144;
+  }
+  .logo-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-left: 6px;
+    align-self: center;
+    transform: translateY(-6px);
+  }
+
+  nav.main-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  nav.main-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    position: relative;
+  }
+  nav.main-nav a:hover { color: var(--text); }
+  nav.main-nav a.active { color: var(--text); }
+  nav.main-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 10px 18px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-dim);
+    border-color: var(--border-strong);
+  }
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: #0a0a0b;
+    border-color: var(--gold);
+  }
+  .btn-gold:hover {
+    background: var(--gold-bright);
+    border-color: var(--gold-bright);
+    transform: translateY(-1px);
+  }
+  .btn-outline-gold {
+    background: transparent;
+    color: var(--gold);
+    border-color: var(--gold-dim);
+  }
+  .btn-outline-gold:hover {
+    background: rgba(201, 169, 97, 0.08);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+  }
+
+  /* ============ MAIN ============ */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Hero / Eyebrow */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(40px, 5.5vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+    font-variation-settings: "opsz" 144;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .hero-sub {
+    color: var(--text-dim);
+    font-size: 16px;
+    max-width: 560px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  /* ============ STATS BAR ============ */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: 56px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-value .unit {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+  .stat-trend {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 6px;
+  }
+
+  /* ============ SECTION HEAD ============ */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 144;
+  }
+  .section-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ============ FEATURED MATCH (Top Pick) ============ */
+  .featured-match {
+    background: linear-gradient(135deg, rgba(201, 169, 97, 0.04), rgba(201, 169, 97, 0.01));
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 40px;
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured-match::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .featured-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .featured-tag::before {
+    content: '★';
+    font-size: 12px;
+  }
+
+  .featured-teams {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .team-block { flex: 1; }
+  .team-block.away { text-align: right; }
+  .team-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .team-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .vs-divider {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .featured-meta {
+    display: flex;
+    gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .featured-meta strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Score Panel */
+  .score-panel {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+  }
+  .score-panel-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .score-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .score-row:last-of-type { margin-bottom: 24px; }
+
+  .score-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+  .score-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .score-value .out-of {
+    font-size: 14px;
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  .score-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    margin-top: 6px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    transition: width 1s ease;
+  }
+
+  .editor-tip {
+    font-style: italic;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text);
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-variation-settings: "opsz" 144;
+  }
+  .editor-tip::before {
+    content: '"';
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 0;
+    position: relative;
+    top: 8px;
+    margin-right: 4px;
+  }
+
+  /* ============ MATCH CARDS GRID ============ */
+  .matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .match-card {
+    background: var(--bg-card);
+    padding: 24px 28px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .match-card:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .match-team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .match-team-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .match-team-odds {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+  }
+  .match-team-odds.best {
+    color: var(--gold);
+  }
+
+  .match-draw {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+  }
+  .match-draw-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .match-draw-odds {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .match-scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding-top: 4px;
+  }
+  .match-score {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .match-score-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .match-score-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .match-score-value .out {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  .match-tip {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-weight: 300;
+  }
+
+  .match-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .match-bookmaker {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .match-unlock {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .match-unlock .lock {
+    width: 10px; height: 10px;
+    border: 1px solid var(--gold);
+    border-radius: 1px;
+    position: relative;
+  }
+  .match-unlock .lock::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 4px;
+    border: 1px solid var(--gold);
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+  }
+
+  /* ============ LOADING / EMPTY STATES ============ */
+  .loading, .error {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-dim);
+  }
+  .loading-pulse {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .loading-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ============ MODAL ============ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+  .modal {
+    background: var(--bg-elev);
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    max-width: 520px;
+    width: 100%;
+    padding: 48px;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+  .modal-overlay.active .modal {
+    transform: translateY(0);
+  }
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-faint);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--text); }
+
+  .modal-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 144;
+  }
+  .modal-title em { font-style: italic; color: var(--gold); }
+  .modal-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .modal-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .modal-features li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .modal-features li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--gold-dim);
+  }
+
+  .modal-cta {
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px;
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  .modal-foot {
+    text-align: center;
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 32px 32px;
+    margin-top: 96px;
+    position: relative;
+    z-index: 2;
+  }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-col h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .footer-col p {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--text); }
+
+  .footer-disclaimer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+  .footer-disclaimer strong {
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .header-inner { padding: 14px 20px; gap: 12px; }
+    nav.main-nav { display: none; }
+    main { padding: 32px 20px 64px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
+    .featured-grid { grid-template-columns: 1fr; gap: 32px; }
+    .featured-match { padding: 28px; }
+    .matches-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .modal { padding: 32px 24px; }
+    .modal-title { font-size: 26px; }
+  }
+</style>
 </head>
 <body>
-  <h1>MetricElite backend is actief.</h1>
-  <p>Beschikbare endpoints:</p>
-  <ul>
-    <li><a href="/.netlify/functions/matches">/.netlify/functions/matches</a> – Eredivisie wedstrijden</li>
-    <li><code>/.netlify/functions/odds</code> – Odds per wedstrijd</li>
-    <li><code>/.netlify/functions/analyze</code> (POST) – AI-analyse</li>
-  </ul>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="MetricElite">
+      <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
+      <span class="logo-dot"></span>
+    </a>
+    <nav class="main-nav">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Wedstrijden</a>
+      <a href="#">Bookmakers</a>
+      <a href="#">Methodologie</a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="openModal('login')">Inloggen</button>
+      <button class="btn btn-gold" onclick="openModal('upgrade')">Upgrade naar Premium</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="fade-up" style="margin-bottom: 48px;">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Eredivisie · Speelronde Live</span>
+    </div>
+    <h1 class="hero-title">
+      Slimmer wedden.<br>
+      <em>Niet harder gokken.</em>
+    </h1>
+    <p class="hero-sub">
+      MetricElite combineert live odds van vier topbookmakers met AI-analyse op basis van data.
+      Voor wedders die de markt willen verslaan, niet erop willen hopen.
+    </p>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="stats-bar fade-up" style="animation-delay: 0.1s;">
+    <div class="stat">
+      <div class="stat-label">Wedstrijden Geanalyseerd</div>
+      <div class="stat-value" id="stat-matches">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Bookmakers Vergeleken</div>
+      <div class="stat-value">4<span class="unit">live</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Gem. Edge t.o.v. Markt</div>
+      <div class="stat-value">+4.2<span class="unit">%</span></div>
+      <div class="stat-trend">↗ laatste 30 dagen</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">AI Confidence Avg.</div>
+      <div class="stat-value">71<span class="unit">/100</span></div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section style="margin-bottom: 56px;">
+    <div class="section-head">
+      <h2 class="section-title">Tip van de redactie</h2>
+      <span class="section-meta">★ Highest Edge · Vandaag</span>
+    </div>
+    <div id="featured-container">
+      <div class="loading">
+        <div class="loading-pulse"></div>
+        <p style="margin-top: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em;">DATA LADEN…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL MATCHES -->
+  <section>
+    <div class="section-head">
+      <h2 class="section-title">Aankomende wedstrijden</h2>
+      <span class="section-meta" id="matches-count">— wedstrijden</span>
+    </div>
+    <div id="matches-container" class="matches-grid">
+      <!-- skeleton cards -->
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ UPGRADE MODAL ============ -->
+<div class="modal-overlay" id="modal-upgrade">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('upgrade')">×</button>
+    <div class="modal-eyebrow">★ MetricElite Premium</div>
+    <h2 class="modal-title">Krijg de <em>volledige</em> analyse.</h2>
+    <p class="modal-sub">
+      Toegang tot diepere statistieken, AI-voorspellingen per uitkomst,
+      historische form-trends en exclusieve insights die het verschil maken.
+    </p>
+    <ul class="modal-features">
+      <li>Volledige AI-analyse per wedstrijd in het Nederlands</li>
+      <li>Voorspelde score & uitkomst met onderbouwing</li>
+      <li>Form-trends & head-to-head statistieken</li>
+      <li>Real-time odds-alerts bij bewegingen</li>
+      <li>Toegang tot alle competities (Q3 2026)</li>
+    </ul>
+    <div class="form-group">
+      <label class="form-label">E-mailadres</label>
+      <input type="email" class="form-input" placeholder="jij@metricelite.com" id="upgrade-email">
+    </div>
+    <button class="btn btn-gold modal-cta" onclick="mockUpgrade()">
+      Start 7 dagen gratis · €9,99/mnd
+    </button>
+    <div class="modal-foot">GEEN ABONNEMENT — STOP WANNEER JE WIL</div>
+  </div>
+</div>
+
+<!-- ============ LOGIN MODAL ============ -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('login')">×</button>
+    <div class="modal-eyebrow">Account · Inloggen</div>
+    <h2 class="modal-title">Welkom <em>terug</em>.</h2>
+    <p class="modal-sub">Log in om je premium analyses en alerts te bekijken.</p>
+    <div class="form-group">
+      <label class="form-label">E-mailadres</label>
+      <input type="email" class="form-input" placeholder="jij@metricelite.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Wachtwoord</label>
+      <input type="password" class="form-input" placeholder="••••••••">
+    </div>
+    <button class="btn btn-gold modal-cta" onclick="mockLogin()">Inloggen</button>
+    <div class="modal-foot">NOG GEEN ACCOUNT? · <a href="#" onclick="closeModal('login'); openModal('upgrade'); return false;" style="color: var(--gold);">UPGRADE</a></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <a href="/" class="logo" style="margin-bottom: 16px;">
+        <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
+        <span class="logo-dot"></span>
+      </a>
+      <p>Datagedreven AI-intelligence voor wedders die de markt serieus nemen. Eredivisie eerst, daarna Europa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#">Dashboard</a>
+      <a href="#">Wedstrijden</a>
+      <a href="#">Premium</a>
+      <a href="#">Methodologie</a>
+    </div>
+    <div class="footer-col">
+      <h4>Bookmakers</h4>
+      <a href="#">Unibet</a>
+      <a href="#">Betway</a>
+      <a href="#">Pinnacle</a>
+      <a href="#">William Hill</a>
+    </div>
+    <div class="footer-col">
+      <h4>Bedrijf</h4>
+      <a href="#">Over ons</a>
+      <a href="#">Contact</a>
+      <a href="#">Voorwaarden</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    <strong>Verantwoord gokken — 18+ Wat kost het jou?</strong>
+    MetricElite biedt informatieve analyses, geen garanties. Wedden kan verslavend zijn.
+    Speel bewust en alleen met geld dat je kunt missen. Hulp nodig? Bel <strong>0900-2177721</strong> (Loket Kansspel).
+    © 2026 MetricElite. Alle rechten voorbehouden.
+  </div>
+</footer>
+
+<script>
+  // ========== API CONFIG ==========
+  const API_BASE = '/.netlify/functions';
+  const COMBINED_ENDPOINT = `${API_BASE}/combined`;
+  const ANALYZE_ENDPOINT = `${API_BASE}/analyze`;
+
+  // ========== MODAL HELPERS ==========
+  function openModal(name) {
+    document.getElementById(`modal-${name}`).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(name) {
+    document.getElementById(`modal-${name}`).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => {
+      if (e.target === o) o.classList.remove('active'), document.body.style.overflow = '';
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(o => o.classList.remove('active'));
+      document.body.style.overflow = '';
+    }
+  });
+
+  function mockUpgrade() {
+    const email = document.getElementById('upgrade-email').value;
+    if (!email || !email.includes('@')) {
+      alert('Vul een geldig e-mailadres in.');
+      return;
+    }
+    alert(`Bedankt! In de demo gebeurt verder niets.\n\nIn productie zou je nu naar Stripe Checkout gaan voor: ${email}`);
+    closeModal('upgrade');
+  }
+  function mockLogin() {
+    alert('Demo login — in productie zou hier echte authenticatie plaatsvinden.');
+    closeModal('login');
+  }
+
+  // ========== DATA FETCHING ==========
+  async function loadData() {
+    try {
+      const res = await fetch(COMBINED_ENDPOINT);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      renderData(data);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      renderError(err.message);
+    }
+  }
+
+  // ========== EDGE SCORE COMPUTATION ==========
+  // Value Index = hoe goed de odds zijn t.o.v. de marktconsensus (0-100)
+  // Confidence = hoe zeker AI is van de uitkomst (0-100)
+  function computeScores(match) {
+    const odds = match.odds || {};
+    const home = parseFloat(odds.home) || 0;
+    const draw = parseFloat(odds.draw) || 0;
+    const away = parseFloat(odds.away) || 0;
+
+    if (!home || !draw || !away) {
+      return { value: 0, confidence: 0, pick: '—', bestBookmaker: '—' };
+    }
+
+    // Implied probabilities
+    const pH = 1/home, pD = 1/draw, pA = 1/away;
+    const total = pH + pD + pA;
+    const margin = (total - 1) * 100; // bookmaker overround
+
+    // Value index: lower margin = better value for bettor
+    // Most books run 4-8% margin; below 5% is excellent
+    const value = Math.max(0, Math.min(100, Math.round(100 - (margin * 12))));
+
+    // Confidence: hoe groot is de favoriet? (gap tussen hoogste en laagste prob)
+    const probs = [pH/total, pD/total, pA/total];
+    const maxProb = Math.max(...probs);
+    const confidence = Math.round(maxProb * 100);
+
+    // Pick
+    const idx = probs.indexOf(maxProb);
+    const pick = ['1 (thuis)', 'X (gelijk)', '2 (uit)'][idx];
+
+    return {
+      value,
+      confidence,
+      pick,
+      bestBookmaker: odds.bookmaker || 'Unibet',
+      home, draw, away,
+      bestOutcome: ['home','draw','away'][idx]
+    };
+  }
+
+  // ========== RENDERING ==========
+  function renderData(data) {
+    const matches = (data.matches || []).filter(m => m.odds && m.odds.home);
+    if (!matches.length) {
+      renderError('Geen aankomende wedstrijden met odds gevonden.');
+      return;
+    }
+
+    // Compute scores for each
+    matches.forEach(m => m.scores = computeScores(m));
+
+    // Sort by value index (highest = best edge)
+    matches.sort((a, b) => b.scores.value - a.scores.value);
+
+    // Update stat
+    document.getElementById('stat-matches').innerHTML = matches.length + '<span class="unit">live</span>';
+    document.getElementById('matches-count').textContent = `${matches.length} wedstrijden`;
+
+    // Featured = top match
+    renderFeatured(matches[0]);
+
+    // Rest in grid
+    renderGrid(matches.slice(1));
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    const days = ['ZON','MAA','DIN','WOE','DON','VRI','ZAT'];
+    const months = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+    return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} · ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+  }
+
+  function shortTip(match) {
+    const s = match.scores;
+    const tips = {
+      home: `Thuisploeg ${match.homeTeam} geldt als duidelijke favoriet bij de meeste bookmakers — de markt is hier opvallend eensgezind.`,
+      draw: `De markt twijfelt: de odds liggen dicht bij elkaar wat een open wedstrijd suggereert. X kan waarde bieden.`,
+      away: `${match.awayTeam} wordt verrassend hoog ingeschat door de bookmakers — een interessante uitwedstrijd om te volgen.`
+    };
+    return tips[s.bestOutcome] || tips.home;
+  }
+
+  function renderFeatured(match) {
+    const s = match.scores;
+    const container = document.getElementById('featured-container');
+    container.innerHTML = `
+      <div class="featured-match">
+        <div class="featured-grid">
+          <div>
+            <div class="featured-tag">Top pick · Highest Value Index</div>
+            <div class="featured-teams">
+              <div class="team-block">
+                <div class="team-name">${match.homeTeam}</div>
+                <div class="team-meta">THUIS · ${s.home.toFixed(2)}</div>
+              </div>
+              <div class="vs-divider">vs</div>
+              <div class="team-block away">
+                <div class="team-name">${match.awayTeam}</div>
+                <div class="team-meta">UIT · ${s.away.toFixed(2)}</div>
+              </div>
+            </div>
+            <div class="featured-meta">
+              <span><strong>${formatDate(match.utcDate)}</strong></span>
+              <span>Gelijkspel <strong>${s.draw.toFixed(2)}</strong></span>
+              <span>Beste odds: <strong>${s.bestBookmaker}</strong></span>
+            </div>
+          </div>
+          <div class="score-panel">
+            <div class="score-panel-title">★ Edge Analyse</div>
+            <div class="score-row">
+              <span class="score-label">Value Index</span>
+              <span class="score-value">${s.value}<span class="out-of">/100</span></span>
+            </div>
+            <div class="score-bar"><div class="score-bar-fill" style="width: ${s.value}%"></div></div>
+            <div class="score-row">
+              <span class="score-label">Confidence Score</span>
+              <span class="score-value">${s.confidence}<span class="out-of">/100</span></span>
+            </div>
+            <div class="score-bar"><div class="score-bar-fill" style="width: ${s.confidence}%"></div></div>
+            <div class="editor-tip">
+              ${shortTip(match)} Onze AI ziet ${s.pick} als waarschijnlijkste uitkomst.
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderGrid(matches) {
+    const container = document.getElementById('matches-container');
+    if (!matches.length) {
+      container.innerHTML = `<div class="loading">Geen extra wedstrijden te tonen.</div>`;
+      return;
+    }
+    container.innerHTML = matches.map(match => {
+      const s = match.scores;
+      return `
+        <div class="match-card" onclick="openModal('upgrade')">
+          <div class="match-header">
+            <span>${formatDate(match.utcDate)}</span>
+            <span>EREDIVISIE</span>
+          </div>
+          <div class="match-teams">
+            <div class="match-team">
+              <span class="match-team-name">${match.homeTeam}</span>
+              <span class="match-team-odds ${s.bestOutcome === 'home' ? 'best' : ''}">${s.home.toFixed(2)}</span>
+            </div>
+            <div class="match-draw">
+              <span class="match-draw-label">Gelijkspel</span>
+              <span class="match-draw-odds ${s.bestOutcome === 'draw' ? 'best' : ''}">${s.draw.toFixed(2)}</span>
+            </div>
+            <div class="match-team">
+              <span class="match-team-name">${match.awayTeam}</span>
+              <span class="match-team-odds ${s.bestOutcome === 'away' ? 'best' : ''}">${s.away.toFixed(2)}</span>
+            </div>
+          </div>
+          <div class="match-scores">
+            <div class="match-score">
+              <span class="match-score-label">Value Index</span>
+              <span class="match-score-value">${s.value}<span class="out">/100</span></span>
+            </div>
+            <div class="match-score">
+              <span class="match-score-label">Confidence</span>
+              <span class="match-score-value">${s.confidence}<span class="out">/100</span></span>
+            </div>
+          </div>
+          <div class="match-tip">${shortTip(match)}</div>
+          <div class="match-cta">
+            <span class="match-bookmaker">VIA ${s.bestBookmaker.toUpperCase()}</span>
+            <span class="match-unlock">
+              <span class="lock"></span>
+              Volledige analyse
+            </span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderError(msg) {
+    const fc = document.getElementById('featured-container');
+    const mc = document.getElementById('matches-container');
+    const html = `
+      <div class="error" style="padding: 60px 20px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--amber); letter-spacing: 0.15em; margin-bottom: 12px;">⚠ DATA TIJDELIJK NIET BESCHIKBAAR</div>
+        <p style="color: var(--text-dim);">${msg}</p>
+        <p style="color: var(--text-faint); font-size: 12px; margin-top: 12px;">Controleer je Netlify Functions of probeer het zo opnieuw.</p>
+      </div>
+    `;
+    fc.innerHTML = html;
+    mc.innerHTML = '';
+    mc.style.border = 'none';
+  }
+
+  // ========== INIT ==========
+  loadData();
+</script>
+
 </body>
 </html>
