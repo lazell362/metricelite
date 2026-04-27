@@ -31,9 +31,9 @@ Voeg deze drie variabelen toe:
 
 | Naam | Waarde |
 |------|--------|
-| `FOOTBALL_API_KEY` | `8f134f4befd04ec68cd9a5dbbd2f246a` |
+| `FOOTBALL_API_KEY` | [jouw The Odds API key] |
 | `ODDS_API_KEY` | [jouw The Odds API key] |
-| `GROK_API_KEY` | `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` |
+| `GROK_API_KEY` | [jouw The Odds API key] |
 
 ## Stap 3: Code op GitHub zetten
 
