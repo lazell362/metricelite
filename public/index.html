@@ -510,11 +510,13 @@
   let currentProfile = null;
 
   async function loadProfile(userId) {
+    console.log('[DEBUG] loadProfile called for userId:', userId);
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
+    console.log('[DEBUG] loadProfile result:', { data, error });
     if (error) {
       console.error('Profile load error:', error);
       return null;
@@ -523,17 +525,24 @@
   }
 
   async function refreshAuthState() {
+    console.log('[DEBUG] refreshAuthState called');
     const { data: { session } } = await supabase.auth.getSession();
+    console.log('[DEBUG] session:', session);
     currentUser = session?.user || null;
+    console.log('[DEBUG] currentUser:', currentUser);
     currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+    console.log('[DEBUG] currentProfile:', currentProfile);
     renderHeaderActions();
   }
 
   function renderHeaderActions() {
+    console.log('[DEBUG] renderHeaderActions, user:', !!currentUser, 'profile:', !!currentProfile);
     const container = document.getElementById('header-actions');
-    if (currentUser && currentProfile) {
-      const isAdmin = currentProfile.role === 'admin';
-      const isPremium = currentProfile.subscription_status === 'active';
+    if (currentUser) {
+      // Profile kan ontbreken (bv. door tijdelijke RLS/network issue) - val terug op defaults
+      const profile = currentProfile || { role: 'user', subscription_status: 'free' };
+      const isAdmin = profile.role === 'admin';
+      const isPremium = profile.subscription_status === 'active';
       const badgeClass = isAdmin ? 'admin' : (isPremium ? 'premium' : 'free');
       const badgeText = isAdmin ? 'Admin' : (isPremium ? 'Premium' : 'Free');
       container.innerHTML = `
