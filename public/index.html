@@ -525,9 +525,12 @@
   }
 
   async function refreshAuthState() {
+    console.log('[INDEX] refreshAuthState start');
     const { data: { session } } = await supabase.auth.getSession();
+    console.log('[INDEX] session:', session ? `INGELOGD ${session.user.email}` : 'null');
     currentUser = session?.user || null;
     currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+    console.log('[INDEX] profile:', currentProfile);
     renderHeaderActions();
   }
 
@@ -743,7 +746,7 @@
 
   // ============ AUTH STATE LISTENER ============
   supabase.auth.onAuthStateChange(async (event, session) => {
-    console.log('Auth event:', event);
+    console.log('[INDEX] Auth event:', event, session ? 'with session' : 'no session');
     if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
       await refreshAuthState();
     } else if (event === 'SIGNED_OUT') {
