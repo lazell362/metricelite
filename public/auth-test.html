@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>MetricElite Auth Test</title>
+<style>
+  body { font-family: system-ui; background: #111; color: #eee; max-width: 600px; margin: 40px auto; padding: 20px; }
+  h1 { color: #c9a961; }
+  input, button { display: block; width: 100%; padding: 10px; margin: 8px 0; font-size: 14px; box-sizing: border-box; }
+  input { background: #222; border: 1px solid #444; color: #eee; }
+  button { background: #c9a961; color: #000; border: none; font-weight: bold; cursor: pointer; }
+  button:hover { background: #e0c685; }
+  pre { background: #000; padding: 12px; border-radius: 4px; overflow-x: auto; font-size: 12px; max-height: 400px; overflow-y: auto; }
+  .log { color: #6ba368; }
+  .err { color: #c94f4f; }
+  .info { color: #d4a847; }
+</style>
+</head>
+<body>
+<h1>MetricElite — Auth Diagnose</h1>
+<p>Minimaal testpagina om te checken wat er met Supabase auth aan de hand is.</p>
+
+<input type="email" id="email" placeholder="E-mail">
+<input type="password" id="password" placeholder="Wachtwoord (min. 8 tekens)">
+
+<button onclick="testSignup()">1. Registreer nieuwe gebruiker</button>
+<button onclick="testLogin()">2. Login</button>
+<button onclick="testGetSession()">3. Get current session</button>
+<button onclick="testGetUser()">4. Get current user</button>
+<button onclick="testQueryProfile()">5. Query profile</button>
+<button onclick="testLogout()">6. Logout</button>
+<button onclick="clearStorage()" style="background:#c94f4f;color:#fff;">Wis alle Supabase localStorage</button>
+
+<h3>Output:</h3>
+<pre id="output"></pre>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+  const SUPABASE_URL = 'https://azvphqgsiswthrpcipyb.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_QpxdG_9OK_2b-HLDj_sX9Q_apXENtH_';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  window.supabase = supabase;
+
+  const out = document.getElementById('output');
+  function log(msg, type='log') {
+    const time = new Date().toLocaleTimeString();
+    const line = `<span class="${type}">[${time}] ${msg}</span>\n`;
+    out.innerHTML += line;
+    out.scrollTop = out.scrollHeight;
+    console.log(`[${type}]`, msg);
+  }
+
+  log('Supabase client geïnitialiseerd', 'info');
+  log(`URL: ${SUPABASE_URL}`, 'info');
+  log(`Key: ${SUPABASE_KEY.substring(0, 25)}... (lengte ${SUPABASE_KEY.length})`, 'info');
+
+  // Test direct bij laden
+  log('--- Auto-check sessie bij laden ---', 'info');
+  const { data: initSession, error: initErr } = await supabase.auth.getSession();
+  if (initErr) log('getSession error: ' + JSON.stringify(initErr), 'err');
+  else log('getSession op start: ' + (initSession.session ? `INGELOGD als ${initSession.session.user.email}` : 'NIET ingelogd'), 'log');
+
+  window.testSignup = async function() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    log(`Signup poging: ${email}`, 'info');
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) log('SIGNUP ERROR: ' + JSON.stringify(error), 'err');
+    else log('SIGNUP OK: ' + JSON.stringify({user_id: data.user?.id, session: !!data.session, needs_confirmation: !data.session}), 'log');
+  };
+
+  window.testLogin = async function() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    log(`Login poging: ${email}`, 'info');
+    const start = Date.now();
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const dur = Date.now() - start;
+      if (error) log(`LOGIN ERROR (${dur}ms): ` + JSON.stringify(error), 'err');
+      else log(`LOGIN OK (${dur}ms): user=${data.user.email}, session_aanwezig=${!!data.session}`, 'log');
+    } catch (e) {
+      log('LOGIN EXCEPTION: ' + e.message, 'err');
+    }
+  };
+
+  window.testGetSession = async function() {
+    log('getSession aangeroepen...', 'info');
+    const start = Date.now();
+    const { data, error } = await supabase.auth.getSession();
+    const dur = Date.now() - start;
+    if (error) log(`getSession error (${dur}ms): ` + JSON.stringify(error), 'err');
+    else if (!data.session) log(`getSession (${dur}ms): geen actieve sessie`, 'log');
+    else log(`getSession (${dur}ms): INGELOGD als ${data.session.user.email}`, 'log');
+  };
+
+  window.testGetUser = async function() {
+    log('getUser aangeroepen...', 'info');
+    const start = Date.now();
+    const { data, error } = await supabase.auth.getUser();
+    const dur = Date.now() - start;
+    if (error) log(`getUser error (${dur}ms): ` + JSON.stringify(error), 'err');
+    else log(`getUser (${dur}ms): ` + (data.user ? `user=${data.user.email}` : 'geen user'), 'log');
+  };
+
+  window.testQueryProfile = async function() {
+    log('Query op profiles tabel...', 'info');
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { log('Niet ingelogd, kan profile niet ophalen', 'err'); return; }
+    const start = Date.now();
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+    const dur = Date.now() - start;
+    if (error) log(`Profile error (${dur}ms): ` + JSON.stringify(error), 'err');
+    else log(`Profile (${dur}ms): ` + JSON.stringify(data), 'log');
+  };
+
+  window.testLogout = async function() {
+    log('Logout aangeroepen...', 'info');
+    const { error } = await supabase.auth.signOut();
+    if (error) log('LOGOUT ERROR: ' + JSON.stringify(error), 'err');
+    else log('LOGOUT OK', 'log');
+  };
+
+  window.clearStorage = function() {
+    let count = 0;
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('sb-') || key.includes('supabase')) {
+        localStorage.removeItem(key);
+        count++;
+      }
+    });
+    log(`Storage gewist: ${count} items verwijderd`, 'info');
+  };
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    log(`AUTH EVENT: ${event} ${session ? '(session aanwezig)' : '(geen session)'}`, 'info');
+  });
+</script>
+</body>
+</html>
