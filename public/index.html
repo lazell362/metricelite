@@ -549,10 +549,19 @@
         <div class="user-menu">
           <span class="user-menu-email">${currentUser.email}</span>
           <span class="user-menu-badge ${badgeClass}">${badgeText}</span>
-          <button class="logout-btn" onclick="window.handleLogout()">Uitloggen</button>
+          <button type="button" class="logout-btn" id="logout-btn-active">Uitloggen</button>
         </div>
         ${!isPremium && !isAdmin ? `<button class="btn btn-gold" onclick="window.openModal('upgrade')">Premium</button>` : ''}
       `;
+      // Bind via addEventListener i.p.v. inline onclick (robuuster voor ES modules)
+      const logoutBtn = document.getElementById('logout-btn-active');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          console.log('[DEBUG] Logout button clicked');
+          e.preventDefault();
+          window.handleLogout();
+        });
+      }
     } else {
       container.innerHTML = `
         <button class="btn btn-ghost" onclick="window.openModal('login')">Inloggen</button>
@@ -667,9 +676,19 @@
   };
 
   window.handleLogout = async function() {
-    await supabase.auth.signOut();
+    console.log('[DEBUG] handleLogout called');
+    try {
+      // Lokale sessie eerst wissen (synchroon, onmiddellijk effect)
+      await supabase.auth.signOut({ scope: 'local' });
+      console.log('[DEBUG] Local signOut done');
+    } catch (err) {
+      console.error('Logout error (negeerbaar):', err);
+    }
+    // UI direct updaten ongeacht remote status
+    currentUser = null;
+    currentProfile = null;
+    renderHeaderActions();
     showToast('success', 'Je bent uitgelogd.');
-    await refreshAuthState();
   };
 
   window.handleUpgradeClick = function() {
