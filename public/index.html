@@ -745,15 +745,22 @@
   });
 
   // ============ AUTH STATE LISTENER ============
-  supabase.auth.onAuthStateChange(async (event, session) => {
+  // Belangrijk: callback is SYNCHROON (geen async). Async werk wordt in setTimeout gezet.
+  // Dit voorkomt een bekende Supabase deadlock waarbij Supabase calls binnen de
+  // onAuthStateChange handler de auth lock blokkeren.
+  supabase.auth.onAuthStateChange((event, session) => {
     console.log('[INDEX] Auth event:', event, session ? 'with session' : 'no session');
-    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
-      await refreshAuthState();
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null;
-      currentProfile = null;
-      renderHeaderActions();
-    }
+    setTimeout(async () => {
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
+        currentUser = session?.user || null;
+        currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+        renderHeaderActions();
+      } else if (event === 'SIGNED_OUT') {
+        currentUser = null;
+        currentProfile = null;
+        renderHeaderActions();
+      }
+    }, 0);
   });
 
   // ============ MATCH DATA ============
@@ -939,10 +946,9 @@
   }
 
   // ============ INIT ============
-  // Render eerst direct de uitgelogde state zodat UI nooit leeg is
+  // Render direct de uitgelogde state. De onAuthStateChange listener
+  // krijgt automatisch een INITIAL_SESSION event en werkt de UI bij als nodig.
   renderHeaderActions();
-  // Daarna pas auth state ophalen (kan even duren)
-  await refreshAuthState();
   loadData();
 </script>
 
