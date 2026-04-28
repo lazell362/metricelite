@@ -512,13 +512,11 @@
   let currentProfile = null;
 
   async function loadProfile(userId) {
-    console.log('[DEBUG] loadProfile called for userId:', userId);
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
-    console.log('[DEBUG] loadProfile result:', { data, error });
     if (error) {
       console.error('Profile load error:', error);
       return null;
@@ -527,40 +525,15 @@
   }
 
   async function refreshAuthState() {
-    console.log('[DEBUG] refreshAuthState called');
-
-    // Timeout op getSession om hangende calls te voorkomen
-    const sessionPromise = supabase.auth.getSession();
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Session timeout')), 3000)
-    );
-
-    let session = null;
-    try {
-      const result = await Promise.race([sessionPromise, timeoutPromise]);
-      session = result?.data?.session || null;
-      console.log('[DEBUG] session:', session);
-    } catch (err) {
-      console.warn('[DEBUG] Session check faalde of timeout:', err.message);
-      // Defensief: wis lokale storage en behandel als uitgelogd
-      try {
-        await supabase.auth.signOut({ scope: 'local' });
-      } catch (e) { /* negeer */ }
-      session = null;
-    }
-
+    const { data: { session } } = await supabase.auth.getSession();
     currentUser = session?.user || null;
-    console.log('[DEBUG] currentUser:', currentUser);
     currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
-    console.log('[DEBUG] currentProfile:', currentProfile);
     renderHeaderActions();
   }
 
   function renderHeaderActions() {
-    console.log('[DEBUG] renderHeaderActions, user:', !!currentUser, 'profile:', !!currentProfile);
     const container = document.getElementById('header-actions');
     if (currentUser) {
-      // Profile kan ontbreken (bv. door tijdelijke RLS/network issue) - val terug op defaults
       const profile = currentProfile || { role: 'user', subscription_status: 'free' };
       const isAdmin = profile.role === 'admin';
       const isPremium = profile.subscription_status === 'active';
@@ -574,11 +547,9 @@
         </div>
         ${!isPremium && !isAdmin ? `<button class="btn btn-gold" onclick="window.openModal('upgrade')">Premium</button>` : ''}
       `;
-      // Bind via addEventListener i.p.v. inline onclick (robuuster voor ES modules)
       const logoutBtn = document.getElementById('logout-btn-active');
       if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
-          console.log('[DEBUG] Logout button clicked');
           e.preventDefault();
           window.handleLogout();
         });
@@ -697,13 +668,7 @@
   };
 
   window.handleLogout = async function() {
-    console.log('[DEBUG] handleLogout called');
-    try {
-      await supabase.auth.signOut({ scope: 'local' });
-      console.log('[DEBUG] Local signOut done');
-    } catch (err) {
-      console.error('Logout error (negeerbaar):', err);
-    }
+    await supabase.auth.signOut();
     currentUser = null;
     currentProfile = null;
     renderHeaderActions();
