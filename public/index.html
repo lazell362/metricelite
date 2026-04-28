@@ -525,12 +525,9 @@
   }
 
   async function refreshAuthState() {
-    console.log('[INDEX] refreshAuthState start');
     const { data: { session } } = await supabase.auth.getSession();
-    console.log('[INDEX] session:', session ? `INGELOGD ${session.user.email}` : 'null');
     currentUser = session?.user || null;
     currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
-    console.log('[INDEX] profile:', currentProfile);
     renderHeaderActions();
   }
 
@@ -749,7 +746,6 @@
   // Dit voorkomt een bekende Supabase deadlock waarbij Supabase calls binnen de
   // onAuthStateChange handler de auth lock blokkeren.
   supabase.auth.onAuthStateChange((event, session) => {
-    console.log('[INDEX] Auth event:', event, session ? 'with session' : 'no session');
     setTimeout(async () => {
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
         currentUser = session?.user || null;
@@ -771,7 +767,6 @@
       const res = await fetch(COMBINED_ENDPOINT);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      console.log('MetricElite data:', data);
       renderData(data);
     } catch (err) {
       console.error('Fetch error:', err);
