@@ -491,6 +491,8 @@
     MetricElite biedt informatieve analyses, geen garanties. Deelname kan verslavend zijn.
     Speel bewust en alleen met geld dat je kunt missen. Hulp nodig? Bel <strong>0900-2177721</strong> (Loket Kansspel).
     © 2026 MetricElite. Alle rechten voorbehouden.
+    <span style="margin-left: 16px; opacity: 0.5;">·</span>
+    <a href="#" onclick="window.resetSession(); return false;" style="color: var(--text-faint); text-decoration: none; margin-left: 8px;">Sessie resetten</a>
   </div>
 </footer>
 
@@ -526,8 +528,27 @@
 
   async function refreshAuthState() {
     console.log('[DEBUG] refreshAuthState called');
-    const { data: { session } } = await supabase.auth.getSession();
-    console.log('[DEBUG] session:', session);
+
+    // Timeout op getSession om hangende calls te voorkomen
+    const sessionPromise = supabase.auth.getSession();
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Session timeout')), 3000)
+    );
+
+    let session = null;
+    try {
+      const result = await Promise.race([sessionPromise, timeoutPromise]);
+      session = result?.data?.session || null;
+      console.log('[DEBUG] session:', session);
+    } catch (err) {
+      console.warn('[DEBUG] Session check faalde of timeout:', err.message);
+      // Defensief: wis lokale storage en behandel als uitgelogd
+      try {
+        await supabase.auth.signOut({ scope: 'local' });
+      } catch (e) { /* negeer */ }
+      session = null;
+    }
+
     currentUser = session?.user || null;
     console.log('[DEBUG] currentUser:', currentUser);
     currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
@@ -678,17 +699,32 @@
   window.handleLogout = async function() {
     console.log('[DEBUG] handleLogout called');
     try {
-      // Lokale sessie eerst wissen (synchroon, onmiddellijk effect)
       await supabase.auth.signOut({ scope: 'local' });
       console.log('[DEBUG] Local signOut done');
     } catch (err) {
       console.error('Logout error (negeerbaar):', err);
     }
-    // UI direct updaten ongeacht remote status
     currentUser = null;
     currentProfile = null;
     renderHeaderActions();
     showToast('success', 'Je bent uitgelogd.');
+  };
+
+  window.resetSession = function() {
+    // Wis ALLE Supabase-gerelateerde localStorage en reload
+    try {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sb-') || key.includes('supabase')) {
+          localStorage.removeItem(key);
+        }
+      });
+      Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('sb-') || key.includes('supabase')) {
+          sessionStorage.removeItem(key);
+        }
+      });
+    } catch (e) { console.error('Storage clear error:', e); }
+    location.reload();
   };
 
   window.handleUpgradeClick = function() {
@@ -935,6 +971,9 @@
   }
 
   // ============ INIT ============
+  // Render eerst direct de uitgelogde state zodat UI nooit leeg is
+  renderHeaderActions();
+  // Daarna pas auth state ophalen (kan even duren)
   await refreshAuthState();
   loadData();
 </script>
