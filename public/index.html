@@ -25,43 +25,28 @@
     --gold-bright: #e0c685;
     --gold-dim: #8a7440;
     --green: #6ba368;
+    --red: #c94f4f;
     --amber: #d4a847;
-
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Manrope', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html, body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    background: var(--bg); color: var(--text);
+    font-family: var(--font-body); line-height: 1.5;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
-
   body {
     background-image:
       radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201, 169, 97, 0.08), transparent 70%),
       radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201, 169, 97, 0.04), transparent 60%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    position: relative;
+    background-attachment: fixed; min-height: 100vh; position: relative;
   }
-
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.4;
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.4;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
   }
-
   ::selection { background: var(--gold); color: var(--bg); }
 
   header {
@@ -72,32 +57,18 @@
     border-bottom: 1px solid var(--border);
   }
   .header-inner {
-    max-width: 1400px; margin: 0 auto;
-    padding: 18px 32px;
+    max-width: 1400px; margin: 0 auto; padding: 18px 32px;
     display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
-  .logo {
-    display: flex; align-items: baseline; gap: 2px;
-    text-decoration: none; letter-spacing: -0.02em;
-  }
-  .logo-metric {
-    font-family: var(--font-display); font-weight: 400; font-size: 26px;
-    color: var(--text); font-style: italic;
-    font-variation-settings: "opsz" 144;
-  }
-  .logo-elite {
-    font-family: var(--font-display); font-weight: 600; font-size: 26px;
-    color: var(--gold); font-variation-settings: "opsz" 144;
-  }
-  .logo-dot {
-    width: 5px; height: 5px; background: var(--gold); border-radius: 50%;
-    margin-left: 6px; align-self: center; transform: translateY(-6px);
-  }
+  .logo { display: flex; align-items: baseline; gap: 2px; text-decoration: none; letter-spacing: -0.02em; }
+  .logo-metric { font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--text); font-style: italic; font-variation-settings: "opsz" 144; }
+  .logo-elite { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--gold); font-variation-settings: "opsz" 144; }
+  .logo-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; margin-left: 6px; align-self: center; transform: translateY(-6px); }
+
   nav.main-nav { display: flex; gap: 32px; align-items: center; }
   nav.main-nav a {
-    color: var(--text-dim); text-decoration: none; font-size: 13px;
-    font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
-    position: relative;
+    color: var(--text-dim); text-decoration: none; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.02em; transition: color 0.2s; position: relative;
   }
   nav.main-nav a:hover, nav.main-nav a.active { color: var(--text); }
   nav.main-nav a.active::after {
@@ -105,6 +76,7 @@
     transform: translateX(-50%); width: 4px; height: 4px;
     background: var(--gold); border-radius: 50%;
   }
+
   .header-actions { display: flex; gap: 12px; align-items: center; }
   .btn {
     font-family: var(--font-body); font-size: 13px; font-weight: 600;
@@ -113,27 +85,43 @@
     transition: all 0.2s ease; text-decoration: none;
     display: inline-flex; align-items: center; gap: 8px;
   }
-  .btn-ghost {
-    background: transparent; color: var(--text-dim); border-color: var(--border-strong);
-  }
-  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--border-strong); }
+  .btn-ghost:hover:not(:disabled) { color: var(--text); border-color: rgba(255,255,255,0.25); }
   .btn-gold { background: var(--gold); color: #0a0a0b; border-color: var(--gold); }
-  .btn-gold:hover {
-    background: var(--gold-bright); border-color: var(--gold-bright);
-    transform: translateY(-1px);
-  }
+  .btn-gold:hover:not(:disabled) { background: var(--gold-bright); border-color: var(--gold-bright); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border-color: var(--border-strong); }
+  .btn-outline:hover:not(:disabled) { border-color: var(--gold-dim); color: var(--gold); }
 
-  main {
-    max-width: 1400px; margin: 0 auto;
-    padding: 48px 32px 96px; position: relative; z-index: 2;
+  .user-menu {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 14px; border: 1px solid var(--border-strong);
+    border-radius: 2px;
   }
+  .user-menu-email {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.05em;
+    max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .user-menu-badge {
+    font-family: var(--font-mono); font-size: 9px;
+    padding: 2px 6px; letter-spacing: 0.1em;
+    text-transform: uppercase; border-radius: 2px;
+  }
+  .user-menu-badge.free { color: var(--text-faint); border: 1px solid var(--border-strong); }
+  .user-menu-badge.premium { color: var(--gold); border: 1px solid var(--gold-dim); background: rgba(201,169,97,0.08); }
+  .user-menu-badge.admin { color: var(--bg); background: var(--gold); border: 1px solid var(--gold); }
+  .logout-btn {
+    background: none; border: none; color: var(--text-faint);
+    font-size: 11px; cursor: pointer; font-family: var(--font-mono);
+    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+  }
+  .logout-btn:hover { color: var(--red); }
 
+  main { max-width: 1400px; margin: 0 auto; padding: 48px 32px 96px; position: relative; z-index: 2; }
   .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
   .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
-  .eyebrow-text {
-    font-family: var(--font-mono); font-size: 11px; color: var(--gold);
-    letter-spacing: 0.18em; text-transform: uppercase;
-  }
+  .eyebrow-text { font-family: var(--font-mono); font-size: 11px; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; }
   .hero-title {
     font-family: var(--font-display); font-weight: 300;
     font-size: clamp(40px, 5.5vw, 72px); line-height: 1.02;
@@ -141,10 +129,7 @@
     font-variation-settings: "opsz" 144;
   }
   .hero-title em { font-style: italic; font-weight: 400; color: var(--gold); }
-  .hero-sub {
-    color: var(--text-dim); font-size: 16px;
-    max-width: 560px; margin-bottom: 48px; line-height: 1.6;
-  }
+  .hero-sub { color: var(--text-dim); font-size: 16px; max-width: 560px; margin-bottom: 48px; line-height: 1.6; }
 
   .stats-bar {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -153,335 +138,141 @@
   }
   .stat { padding: 24px 28px; border-right: 1px solid var(--border); }
   .stat:last-child { border-right: none; }
-  .stat-label {
-    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
-    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px;
-  }
-  .stat-value {
-    font-family: var(--font-display); font-weight: 400;
-    font-size: 32px; line-height: 1; letter-spacing: -0.02em;
-    font-variation-settings: "opsz" 144;
-  }
+  .stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
   .stat-value .unit { font-size: 14px; color: var(--text-dim); margin-left: 4px; }
 
-  .section-head {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 28px; padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .section-title {
-    font-family: var(--font-display); font-weight: 400;
-    font-size: 32px; letter-spacing: -0.02em;
-    font-variation-settings: "opsz" 144;
-  }
-  .section-meta {
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .section-title { font-family: var(--font-display); font-weight: 400; font-size: 32px; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
+  .section-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; }
 
-  .featured-match {
-    background: linear-gradient(135deg, rgba(201, 169, 97, 0.04), rgba(201, 169, 97, 0.01));
-    border: 1px solid var(--border-strong); border-radius: 4px;
-    padding: 40px; margin-bottom: 56px; position: relative; overflow: hidden;
-  }
-  .featured-match::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .featured-grid {
-    display: grid; grid-template-columns: 1.1fr 1fr;
-    gap: 48px; align-items: center;
-  }
-  .featured-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--font-mono); font-size: 10px; color: var(--gold);
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
-  }
+  .featured-match { background: linear-gradient(135deg, rgba(201, 169, 97, 0.04), rgba(201, 169, 97, 0.01)); border: 1px solid var(--border-strong); border-radius: 4px; padding: 40px; margin-bottom: 56px; position: relative; overflow: hidden; }
+  .featured-match::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .featured-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 10px; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; }
   .featured-tag::before { content: '★'; font-size: 12px; }
-  .featured-teams {
-    display: flex; align-items: center; gap: 24px; margin-bottom: 24px;
-  }
+  .featured-teams { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
   .team-block { flex: 1; display: flex; align-items: center; gap: 14px; }
   .team-block.away { flex-direction: row-reverse; text-align: right; }
-  .team-crest {
-    width: 44px; height: 44px; object-fit: contain; flex-shrink: 0;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
-  }
-  .team-name {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 22px; letter-spacing: -0.02em; line-height: 1.1;
-  }
-  .team-meta {
-    font-family: var(--font-mono); font-size: 11px;
-    color: var(--text-faint); letter-spacing: 0.1em; margin-top: 4px;
-  }
-  .vs-divider {
-    font-family: var(--font-display); font-style: italic;
-    font-size: 18px; color: var(--gold); font-weight: 300;
-  }
-  .featured-meta {
-    display: flex; flex-wrap: wrap; gap: 24px;
-    padding-top: 20px; border-top: 1px solid var(--border);
-    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-  }
+  .team-crest { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+  .team-name { font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -0.02em; line-height: 1.1; }
+  .team-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.1em; margin-top: 4px; }
+  .vs-divider { font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--gold); font-weight: 300; }
+  .featured-meta { display: flex; flex-wrap: wrap; gap: 24px; padding-top: 20px; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
   .featured-meta strong { color: var(--text); font-weight: 500; }
 
-  .score-panel {
-    background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-    border-radius: 4px; padding: 28px;
-  }
-  .score-panel-title {
-    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
-  }
-  .score-row {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 8px;
-  }
+  .score-panel { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 4px; padding: 28px; }
+  .score-panel-title { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
+  .score-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
   .score-label { font-size: 13px; color: var(--text-dim); }
-  .score-value {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 28px; color: var(--gold); letter-spacing: -0.02em;
-  }
+  .score-value { font-family: var(--font-display); font-weight: 500; font-size: 28px; color: var(--gold); letter-spacing: -0.02em; }
   .score-value .out-of { font-size: 14px; color: var(--text-faint); font-weight: 400; }
-  .score-bar {
-    height: 2px; background: rgba(255,255,255,0.06); margin-bottom: 18px;
-    position: relative; overflow: hidden;
-  }
-  .score-bar-fill {
-    position: absolute; top: 0; left: 0; height: 100%;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-    transition: width 1s ease;
-  }
-  .editor-tip {
-    font-style: italic; font-family: var(--font-display);
-    font-weight: 300; font-size: 15px; line-height: 1.55;
-    color: var(--text); padding-top: 20px;
-    border-top: 1px solid var(--border); margin-top: 4px;
-    font-variation-settings: "opsz" 144;
-  }
-  .editor-tip::before {
-    content: '"'; font-size: 32px; color: var(--gold);
-    line-height: 0; position: relative; top: 8px; margin-right: 4px;
-  }
+  .score-bar { height: 2px; background: rgba(255,255,255,0.06); margin-bottom: 18px; position: relative; overflow: hidden; }
+  .score-bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); transition: width 1s ease; }
+  .editor-tip { font-style: italic; font-family: var(--font-display); font-weight: 300; font-size: 15px; line-height: 1.55; color: var(--text); padding-top: 20px; border-top: 1px solid var(--border); margin-top: 4px; font-variation-settings: "opsz" 144; }
+  .editor-tip::before { content: '"'; font-size: 32px; color: var(--gold); line-height: 0; position: relative; top: 8px; margin-right: 4px; }
 
-  .matches-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 1px; background: var(--border);
-    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-  }
-  .match-card {
-    background: var(--bg-card); padding: 24px 28px;
-    transition: background 0.2s ease; cursor: pointer;
-    display: flex; flex-direction: column; gap: 16px;
-  }
+  .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .match-card { background: var(--bg-card); padding: 24px 28px; transition: background 0.2s ease; cursor: pointer; display: flex; flex-direction: column; gap: 16px; }
   .match-card:hover { background: var(--bg-card-hover); }
-  .match-header {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
-    letter-spacing: 0.15em; text-transform: uppercase;
-  }
+  .match-header { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
   .match-teams { display: flex; flex-direction: column; gap: 6px; }
-  .match-team {
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  }
-  .match-team-info {
-    display: flex; align-items: center; gap: 10px;
-    flex: 1; min-width: 0;
-  }
-  .match-team-crest {
-    width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
-  }
-  .match-team-name {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 17px; letter-spacing: -0.01em;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .match-team-odds {
-    font-family: var(--font-mono); font-size: 14px; font-weight: 500;
-    color: var(--text-dim); flex-shrink: 0;
-  }
+  .match-team { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .match-team-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .match-team-crest { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+  .match-team-name { font-family: var(--font-display); font-weight: 500; font-size: 17px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .match-team-odds { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--text-dim); flex-shrink: 0; }
   .match-team-odds.best { color: var(--gold); }
-  .match-draw {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 6px 0 6px 32px;
-    border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
-  }
-  .match-draw-label {
-    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  .match-draw { display: flex; justify-content: space-between; align-items: center; padding: 6px 0 6px 32px; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); }
+  .match-draw-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; }
   .match-draw-odds { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
   .match-draw-odds.best { color: var(--gold); }
-  .match-scores {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 4px;
-  }
+  .match-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 4px; }
   .match-score { display: flex; flex-direction: column; gap: 4px; }
-  .match-score-label {
-    font-family: var(--font-mono); font-size: 9px; color: var(--text-faint);
-    letter-spacing: 0.15em; text-transform: uppercase;
-  }
-  .match-score-value {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 22px; color: var(--gold); letter-spacing: -0.02em;
-    display: flex; align-items: baseline; gap: 2px;
-  }
+  .match-score-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
+  .match-score-value { font-family: var(--font-display); font-weight: 500; font-size: 22px; color: var(--gold); letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 2px; }
   .match-score-value .out { font-size: 11px; color: var(--text-faint); font-weight: 400; }
-  .match-tip {
-    font-size: 13px; line-height: 1.55; color: var(--text-dim);
-    padding-top: 12px; border-top: 1px solid var(--border);
-    font-style: italic; font-family: var(--font-display); font-weight: 300;
-  }
-  .match-cta {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 12px; border-top: 1px solid var(--border);
-  }
-  .match-bookmaker {
-    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .match-unlock {
-    font-family: var(--font-body); font-size: 11px; font-weight: 600;
-    color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .match-unlock .lock {
-    width: 10px; height: 10px;
-    border: 1px solid var(--gold); border-radius: 1px; position: relative;
-  }
-  .match-unlock .lock::before {
-    content: ''; position: absolute; top: -4px; left: 50%;
-    transform: translateX(-50%); width: 6px; height: 4px;
-    border: 1px solid var(--gold); border-bottom: none;
-    border-radius: 3px 3px 0 0;
-  }
-  .match-no-odds {
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
-    text-align: center; padding: 20px 0; font-style: italic;
-  }
+  .match-tip { font-size: 13px; line-height: 1.55; color: var(--text-dim); padding-top: 12px; border-top: 1px solid var(--border); font-style: italic; font-family: var(--font-display); font-weight: 300; }
+  .match-cta { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+  .match-bookmaker { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; }
+  .match-unlock { font-family: var(--font-body); font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+  .match-unlock .lock { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 1px; position: relative; }
+  .match-unlock .lock::before { content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 6px; height: 4px; border: 1px solid var(--gold); border-bottom: none; border-radius: 3px 3px 0 0; }
+  .match-no-odds { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); text-align: center; padding: 20px 0; font-style: italic; }
 
   .loading, .error { text-align: center; padding: 80px 20px; color: var(--text-dim); }
-  .loading-pulse {
-    display: inline-block; width: 40px; height: 1px; background: var(--gold);
-    position: relative; overflow: hidden;
-  }
-  .loading-pulse::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
+  .loading-pulse { display: inline-block; width: 40px; height: 1px; background: var(--gold); position: relative; overflow: hidden; }
+  .loading-pulse::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--gold-bright), transparent); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(8px); z-index: 200;
-    display: none; align-items: center; justify-content: center;
-    padding: 24px; opacity: 0; transition: opacity 0.3s;
-  }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s; }
   .modal-overlay.active { display: flex; opacity: 1; }
-  .modal {
-    background: var(--bg-elev); border: 1px solid var(--border-strong);
-    border-radius: 4px; max-width: 520px; width: 100%; padding: 48px;
-    position: relative; transform: translateY(20px); transition: transform 0.3s;
-  }
+  .modal { background: var(--bg-elev); border: 1px solid var(--border-strong); border-radius: 4px; max-width: 480px; width: 100%; padding: 48px; position: relative; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
   .modal-overlay.active .modal { transform: translateY(0); }
-  .modal::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .modal-close {
-    position: absolute; top: 20px; right: 20px;
-    background: none; border: none; color: var(--text-faint);
-    font-size: 24px; cursor: pointer; line-height: 1;
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    transition: color 0.2s;
-  }
+  .modal::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-faint); font-size: 24px; cursor: pointer; line-height: 1; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: color 0.2s; }
   .modal-close:hover { color: var(--text); }
-  .modal-eyebrow {
-    font-family: var(--font-mono); font-size: 10px; color: var(--gold);
-    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
-  }
-  .modal-title {
-    font-family: var(--font-display); font-weight: 400;
-    font-size: 32px; line-height: 1.15; letter-spacing: -0.02em;
-    margin-bottom: 12px; font-variation-settings: "opsz" 144;
-  }
+  .modal-eyebrow { font-family: var(--font-mono); font-size: 10px; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+  .modal-title { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; font-variation-settings: "opsz" 144; }
   .modal-title em { font-style: italic; color: var(--gold); }
-  .modal-sub {
-    color: var(--text-dim); font-size: 14px;
-    line-height: 1.6; margin-bottom: 32px;
-  }
+  .modal-sub { color: var(--text-dim); font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
   .modal-features { list-style: none; margin-bottom: 32px; }
-  .modal-features li {
-    padding: 12px 0; border-bottom: 1px solid var(--border);
-    font-size: 14px; color: var(--text);
-    display: flex; align-items: center; gap: 12px;
-  }
+  .modal-features li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 12px; }
   .modal-features li::before { content: '✦'; color: var(--gold); font-size: 12px; }
-  .form-group { margin-bottom: 16px; }
-  .form-label {
-    display: block; font-family: var(--font-mono); font-size: 10px;
-    color: var(--text-faint); letter-spacing: 0.15em;
-    text-transform: uppercase; margin-bottom: 8px;
-  }
-  .form-input {
-    width: 100%; background: rgba(0,0,0,0.3);
-    border: 1px solid var(--border-strong); color: var(--text);
-    padding: 14px 16px; border-radius: 2px;
-    font-family: var(--font-body); font-size: 14px;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus { outline: none; border-color: var(--gold-dim); }
-  .modal-cta {
-    width: 100%; margin-top: 16px; padding: 16px;
-    font-size: 14px; justify-content: center;
-  }
-  .modal-foot {
-    text-align: center; margin-top: 20px;
-    font-family: var(--font-mono); font-size: 10px;
-    color: var(--text-faint); letter-spacing: 0.1em;
-  }
-  .modal-foot a { color: var(--gold); text-decoration: none; }
 
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 48px 32px 32px; margin-top: 96px;
-    position: relative; z-index: 2;
-  }
-  .footer-inner {
-    max-width: 1400px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 48px; margin-bottom: 48px;
-  }
-  .footer-col h4 {
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .form-input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-strong); color: var(--text); padding: 14px 16px; border-radius: 2px; font-family: var(--font-body); font-size: 14px; transition: border-color 0.2s; }
+  .form-input:focus { outline: none; border-color: var(--gold-dim); }
+
+  .modal-cta { width: 100%; margin-top: 8px; padding: 16px; font-size: 14px; justify-content: center; }
+  .modal-divider {
+    display: flex; align-items: center; gap: 14px;
+    margin: 22px 0;
     font-family: var(--font-mono); font-size: 10px;
     color: var(--text-faint); letter-spacing: 0.2em;
-    text-transform: uppercase; margin-bottom: 16px; font-weight: 500;
+    text-transform: uppercase;
   }
+  .modal-divider::before, .modal-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .modal-foot { text-align: center; margin-top: 22px; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.1em; }
+  .modal-foot a { color: var(--gold); text-decoration: none; cursor: pointer; }
+  .modal-foot a:hover { text-decoration: underline; }
+
+  .form-message {
+    padding: 12px 14px; border-radius: 2px;
+    font-size: 13px; line-height: 1.5;
+    margin-bottom: 16px; display: none;
+  }
+  .form-message.show { display: block; }
+  .form-message.error { background: rgba(201, 79, 79, 0.1); border: 1px solid rgba(201, 79, 79, 0.3); color: #e88787; }
+  .form-message.success { background: rgba(107, 163, 104, 0.1); border: 1px solid rgba(107, 163, 104, 0.3); color: #a3d4a0; }
+  .form-message.info { background: rgba(201, 169, 97, 0.08); border: 1px solid rgba(201, 169, 97, 0.25); color: var(--gold-bright); }
+
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--bg-elev); border: 1px solid var(--border-strong);
+    padding: 14px 18px; border-radius: 2px;
+    font-size: 13px; color: var(--text);
+    z-index: 300; opacity: 0; transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    max-width: 360px; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { border-left: 3px solid var(--green); }
+  .toast.error { border-left: 3px solid var(--red); }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 32px 32px; margin-top: 96px; position: relative; z-index: 2; }
+  .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-col h4 { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; font-weight: 500; }
   .footer-col p { color: var(--text-dim); font-size: 13px; line-height: 1.6; }
-  .footer-col a {
-    display: block; color: var(--text-dim); text-decoration: none;
-    font-size: 13px; margin-bottom: 10px; transition: color 0.2s;
-  }
+  .footer-col a { display: block; color: var(--text-dim); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--text); }
-  .footer-disclaimer {
-    max-width: 1400px; margin: 0 auto;
-    padding-top: 24px; border-top: 1px solid var(--border);
-    font-family: var(--font-mono); font-size: 11px;
-    color: var(--text-faint); line-height: 1.7;
-  }
+  .footer-disclaimer { max-width: 1400px; margin: 0 auto; padding-top: 24px; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); line-height: 1.7; }
   .footer-disclaimer strong { color: var(--amber); font-weight: 500; }
 
-  .fade-up {
-    opacity: 0; transform: translateY(20px);
-    animation: fadeUp 0.8s ease forwards;
-  }
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 900px) {
@@ -496,7 +287,8 @@
     .matches-grid { grid-template-columns: 1fr; }
     .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
     .modal { padding: 32px 24px; }
-    .modal-title { font-size: 26px; }
+    .modal-title { font-size: 24px; }
+    .user-menu-email { max-width: 100px; }
   }
 </style>
 </head>
@@ -514,9 +306,8 @@
       <a href="#">Bookmakers</a>
       <a href="#">Methodologie</a>
     </nav>
-    <div class="header-actions">
-      <button class="btn btn-ghost" onclick="openModal('login')">Inloggen</button>
-      <button class="btn btn-gold" onclick="openModal('upgrade')">Premium</button>
+    <div class="header-actions" id="header-actions">
+      <!-- Wordt dynamisch gevuld op basis van auth state -->
     </div>
   </div>
 </header>
@@ -578,14 +369,74 @@
   </section>
 </main>
 
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('login')">×</button>
+    <div class="modal-eyebrow">Account · Inloggen</div>
+    <h2 class="modal-title">Welkom <em>terug</em>.</h2>
+    <p class="modal-sub">Log in met je e-mail en wachtwoord, of ontvang een magic link.</p>
+
+    <div class="form-message" id="login-message"></div>
+
+    <div class="form-group">
+      <label class="form-label">E-mailadres</label>
+      <input type="email" class="form-input" id="login-email" placeholder="jij@metricelite.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Wachtwoord</label>
+      <input type="password" class="form-input" id="login-password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn btn-gold modal-cta" id="login-submit" onclick="handleLogin()">Inloggen</button>
+
+    <div class="modal-divider">of</div>
+
+    <button class="btn btn-outline modal-cta" id="magiclink-submit" onclick="handleMagicLink()">
+      Stuur magic link naar mijn e-mail
+    </button>
+
+    <div class="modal-foot">
+      NOG GEEN ACCOUNT? · <a onclick="switchModal('login', 'signup')">REGISTREER</a>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal-overlay" id="modal-signup">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('signup')">×</button>
+    <div class="modal-eyebrow">Account · Aanmaken</div>
+    <h2 class="modal-title">Word <em>insider</em>.</h2>
+    <p class="modal-sub">Maak je gratis account aan en krijg toegang tot Edge Scores en korte AI-tips.</p>
+
+    <div class="form-message" id="signup-message"></div>
+
+    <div class="form-group">
+      <label class="form-label">E-mailadres</label>
+      <input type="email" class="form-input" id="signup-email" placeholder="jij@metricelite.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Wachtwoord (min. 8 tekens)</label>
+      <input type="password" class="form-input" id="signup-password" placeholder="••••••••" autocomplete="new-password">
+    </div>
+
+    <button class="btn btn-gold modal-cta" id="signup-submit" onclick="handleSignup()">Account aanmaken</button>
+
+    <div class="modal-foot">
+      AL EEN ACCOUNT? · <a onclick="switchModal('signup', 'login')">INLOGGEN</a>
+    </div>
+  </div>
+</div>
+
+<!-- UPGRADE MODAL -->
 <div class="modal-overlay" id="modal-upgrade">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('upgrade')">×</button>
     <div class="modal-eyebrow">★ MetricElite Premium</div>
     <h2 class="modal-title">Het <em>volledige</em> inzicht.</h2>
     <p class="modal-sub">
-      Diepere statistieken, AI-voorspellingen per uitkomst, form-trends en exclusieve insights
-      die het verschil maken voor wie de markt serieus neemt.
+      Diepere statistieken, AI-voorspellingen per uitkomst, form-trends en exclusieve insights.
     </p>
     <ul class="modal-features">
       <li>Volledige AI-analyse per wedstrijd in het Nederlands</li>
@@ -594,35 +445,15 @@
       <li>Real-time alerts bij oddsbewegingen</li>
       <li>Toegang tot alle competities (Q3 2026)</li>
     </ul>
-    <div class="form-group">
-      <label class="form-label">E-mailadres</label>
-      <input type="email" class="form-input" placeholder="jij@metricelite.com" id="upgrade-email">
-    </div>
-    <button class="btn btn-gold modal-cta" onclick="mockUpgrade()">
-      Start 7 dagen gratis · €9,99/mnd
+    <button class="btn btn-gold modal-cta" onclick="handleUpgradeClick()">
+      Upgrade voor €4,99/mnd
     </button>
     <div class="modal-foot">GEEN ABONNEMENT — STOP WANNEER JE WIL</div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-login">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('login')">×</button>
-    <div class="modal-eyebrow">Account · Inloggen</div>
-    <h2 class="modal-title">Welkom <em>terug</em>.</h2>
-    <p class="modal-sub">Log in om je premium analyses en alerts te bekijken.</p>
-    <div class="form-group">
-      <label class="form-label">E-mailadres</label>
-      <input type="email" class="form-input" placeholder="jij@metricelite.com">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Wachtwoord</label>
-      <input type="password" class="form-input" placeholder="••••••••">
-    </div>
-    <button class="btn btn-gold modal-cta" onclick="mockLogin()">Inloggen</button>
-    <div class="modal-foot">NOG GEEN ACCOUNT? · <a href="#" onclick="closeModal('login'); openModal('upgrade'); return false;">UPGRADE</a></div>
-  </div>
-</div>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <footer>
   <div class="footer-inner">
@@ -663,20 +494,215 @@
   </div>
 </footer>
 
-<script>
-  const COMBINED_ENDPOINT = '/.netlify/functions/combined';
+<!-- Supabase JS SDK -->
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
-  function openModal(name) {
+  // ============ SUPABASE CONFIG ============
+  const SUPABASE_URL = 'https://azvphqgsiswthrpcipyb.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QpxdG_9OK_2b-HLDj_sX9Q_apXENtH_';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  window.supabase = supabase; // beschikbaar voor inline handlers
+
+  // ============ AUTH STATE ============
+  let currentUser = null;
+  let currentProfile = null;
+
+  async function loadProfile(userId) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    if (error) {
+      console.error('Profile load error:', error);
+      return null;
+    }
+    return data;
+  }
+
+  async function refreshAuthState() {
+    const { data: { session } } = await supabase.auth.getSession();
+    currentUser = session?.user || null;
+    currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+    renderHeaderActions();
+  }
+
+  function renderHeaderActions() {
+    const container = document.getElementById('header-actions');
+    if (currentUser && currentProfile) {
+      const isAdmin = currentProfile.role === 'admin';
+      const isPremium = currentProfile.subscription_status === 'active';
+      const badgeClass = isAdmin ? 'admin' : (isPremium ? 'premium' : 'free');
+      const badgeText = isAdmin ? 'Admin' : (isPremium ? 'Premium' : 'Free');
+      container.innerHTML = `
+        <div class="user-menu">
+          <span class="user-menu-email">${currentUser.email}</span>
+          <span class="user-menu-badge ${badgeClass}">${badgeText}</span>
+          <button class="logout-btn" onclick="window.handleLogout()">Uitloggen</button>
+        </div>
+        ${!isPremium && !isAdmin ? `<button class="btn btn-gold" onclick="window.openModal('upgrade')">Premium</button>` : ''}
+      `;
+    } else {
+      container.innerHTML = `
+        <button class="btn btn-ghost" onclick="window.openModal('login')">Inloggen</button>
+        <button class="btn btn-gold" onclick="window.openModal('signup')">Registreren</button>
+      `;
+    }
+  }
+
+  // ============ AUTH HANDLERS ============
+  function showFormMessage(modalId, type, msg) {
+    const el = document.getElementById(`${modalId}-message`);
+    el.className = `form-message show ${type}`;
+    el.textContent = msg;
+  }
+  function hideFormMessage(modalId) {
+    const el = document.getElementById(`${modalId}-message`);
+    el.className = 'form-message';
+    el.textContent = '';
+  }
+  function showToast(type, msg) {
+    const t = document.getElementById('toast');
+    t.className = `toast ${type}`;
+    t.textContent = msg;
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  function setButtonLoading(btnId, loading, originalText) {
+    const btn = document.getElementById(btnId);
+    if (loading) {
+      btn.dataset.original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Even geduld…';
+    } else {
+      btn.disabled = false;
+      btn.textContent = originalText || btn.dataset.original || btn.textContent;
+    }
+  }
+
+  window.handleLogin = async function() {
+    hideFormMessage('login');
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (!email || !password) {
+      showFormMessage('login', 'error', 'Vul je e-mailadres en wachtwoord in.');
+      return;
+    }
+    setButtonLoading('login-submit', true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setButtonLoading('login-submit', false, 'Inloggen');
+    if (error) {
+      showFormMessage('login', 'error', vertaalAuthError(error.message));
+      return;
+    }
+    closeModal('login');
+    showToast('success', 'Welkom terug.');
+    await refreshAuthState();
+  };
+
+  window.handleMagicLink = async function() {
+    hideFormMessage('login');
+    const email = document.getElementById('login-email').value.trim();
+    if (!email) {
+      showFormMessage('login', 'error', 'Vul je e-mailadres in om een magic link te ontvangen.');
+      return;
+    }
+    setButtonLoading('magiclink-submit', true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.origin }
+    });
+    setButtonLoading('magiclink-submit', false, 'Stuur magic link naar mijn e-mail');
+    if (error) {
+      showFormMessage('login', 'error', vertaalAuthError(error.message));
+      return;
+    }
+    showFormMessage('login', 'success', `Check je inbox op ${email} — de link logt je automatisch in.`);
+  };
+
+  window.handleSignup = async function() {
+    hideFormMessage('signup');
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    if (!email || !password) {
+      showFormMessage('signup', 'error', 'Vul je e-mailadres en wachtwoord in.');
+      return;
+    }
+    if (password.length < 8) {
+      showFormMessage('signup', 'error', 'Wachtwoord moet minstens 8 tekens lang zijn.');
+      return;
+    }
+    setButtonLoading('signup-submit', true);
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: window.location.origin }
+    });
+    setButtonLoading('signup-submit', false, 'Account aanmaken');
+    if (error) {
+      showFormMessage('signup', 'error', vertaalAuthError(error.message));
+      return;
+    }
+    if (data.user && !data.session) {
+      // E-mail verificatie aan
+      showFormMessage('signup', 'success', `Bijna klaar! Check je inbox op ${email} en klik op de bevestigingslink.`);
+    } else {
+      // Sessie direct aan (e-mail verificatie uit)
+      closeModal('signup');
+      showToast('success', 'Welkom bij MetricElite.');
+      await refreshAuthState();
+    }
+  };
+
+  window.handleLogout = async function() {
+    await supabase.auth.signOut();
+    showToast('success', 'Je bent uitgelogd.');
+    await refreshAuthState();
+  };
+
+  window.handleUpgradeClick = function() {
+    if (!currentUser) {
+      closeModal('upgrade');
+      window.openModal('signup');
+      showToast('error', 'Maak eerst een account aan om te upgraden.');
+      return;
+    }
+    showToast('error', 'Stripe-integratie volgt in de volgende stap.');
+  };
+
+  function vertaalAuthError(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('invalid login credentials')) return 'E-mailadres of wachtwoord onjuist.';
+    if (m.includes('email not confirmed')) return 'Bevestig eerst je e-mailadres via de link in je inbox.';
+    if (m.includes('user already registered')) return 'Er bestaat al een account met dit e-mailadres. Probeer in te loggen.';
+    if (m.includes('rate limit')) return 'Te veel pogingen. Wacht even en probeer opnieuw.';
+    if (m.includes('password should be')) return 'Wachtwoord voldoet niet aan de eisen (min. 8 tekens).';
+    return msg;
+  }
+
+  // ============ MODAL HELPERS ============
+  window.openModal = function(name) {
     document.getElementById(`modal-${name}`).classList.add('active');
     document.body.style.overflow = 'hidden';
-  }
-  function closeModal(name) {
+  };
+  window.closeModal = function(name) {
     document.getElementById(`modal-${name}`).classList.remove('active');
     document.body.style.overflow = '';
-  }
+    hideFormMessage(name);
+  };
+  window.switchModal = function(from, to) {
+    closeModal(from);
+    setTimeout(() => openModal(to), 100);
+  };
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => {
-      if (e.target === o) { o.classList.remove('active'); document.body.style.overflow = ''; }
+      if (e.target === o) {
+        o.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   });
   document.addEventListener('keydown', e => {
@@ -686,16 +712,20 @@
     }
   });
 
-  function mockUpgrade() {
-    const email = document.getElementById('upgrade-email').value;
-    if (!email || !email.includes('@')) { alert('Vul een geldig e-mailadres in.'); return; }
-    alert(`Bedankt! In de demo gebeurt verder niets.\n\nIn productie zou je nu naar Stripe Checkout gaan voor: ${email}`);
-    closeModal('upgrade');
-  }
-  function mockLogin() {
-    alert('Demo login — in productie zou hier echte authenticatie plaatsvinden.');
-    closeModal('login');
-  }
+  // ============ AUTH STATE LISTENER ============
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log('Auth event:', event);
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+      await refreshAuthState();
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null;
+      currentProfile = null;
+      renderHeaderActions();
+    }
+  });
+
+  // ============ MATCH DATA ============
+  const COMBINED_ENDPOINT = '/.netlify/functions/combined';
 
   async function loadData() {
     try {
@@ -710,20 +740,15 @@
     }
   }
 
-  // Pak de beste odds (hoogste decimal) per uitkomst uit de bestOdds structuur
   function getBestOdds(matchOdds) {
     if (!matchOdds || !matchOdds.bestOdds) return null;
     const b = matchOdds.bestOdds;
     return {
-      home: b.home?.odds || 0,
-      homeBookie: b.home?.bookmaker || '—',
-      draw: b.draw?.odds || 0,
-      drawBookie: b.draw?.bookmaker || '—',
-      away: b.away?.odds || 0,
-      awayBookie: b.away?.bookmaker || '—'
+      home: b.home?.odds || 0, homeBookie: b.home?.bookmaker || '—',
+      draw: b.draw?.odds || 0, drawBookie: b.draw?.bookmaker || '—',
+      away: b.away?.odds || 0, awayBookie: b.away?.bookmaker || '—'
     };
   }
-
   function computeScores(match) {
     const best = getBestOdds(match.odds);
     if (!best || !best.home || !best.draw || !best.away) {
@@ -732,20 +757,13 @@
     const pH = 1/best.home, pD = 1/best.draw, pA = 1/best.away;
     const total = pH + pD + pA;
     const margin = (total - 1) * 100;
-
-    // Bij beste-odds aggregatie loopt marge tussen ~0% en 5%. We mappen 0->100, 5->0
     const value = Math.max(0, Math.min(100, Math.round(100 - (margin * 20))));
-
     const probs = [pH/total, pD/total, pA/total];
     const maxProb = Math.max(...probs);
     const confidence = Math.round(maxProb * 100);
     const idx = probs.indexOf(maxProb);
-    const pick = ['1', 'X', '2'][idx];
-    const bestOutcome = ['home','draw','away'][idx];
-
-    return { value, confidence, pick, bestOutcome, best };
+    return { value, confidence, pick: ['1','X','2'][idx], bestOutcome: ['home','draw','away'][idx], best };
   }
-
   function formatDate(iso) {
     if (!iso) return '—';
     const d = new Date(iso);
@@ -758,7 +776,6 @@
     const d = new Date(iso);
     return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
   }
-
   function shortTip(match, scores) {
     const homeName = match.homeTeam?.shortName || match.homeTeam?.name || 'Thuisploeg';
     const awayName = match.awayTeam?.shortName || match.awayTeam?.name || 'Uitploeg';
@@ -773,46 +790,25 @@
   function renderData(data) {
     const allMatches = data.matches || [];
     const withOdds = allMatches.filter(m => m.odds && m.odds.bestOdds);
-
-    if (!allMatches.length) {
-      renderError('Geen aankomende wedstrijden gevonden.');
-      return;
-    }
-
+    if (!allMatches.length) { renderError('Geen aankomende wedstrijden gevonden.'); return; }
     withOdds.forEach(m => m.scores = computeScores(m));
     const sortedByValue = [...withOdds].sort((a, b) => b.scores.value - a.scores.value);
-
     document.getElementById('stat-matches').innerHTML = `${allMatches.length}<span class="unit">live</span>`;
     document.getElementById('matches-count').textContent = `${allMatches.length} wedstrijden`;
-    document.getElementById('stat-best-value').innerHTML = sortedByValue.length
-      ? `${sortedByValue[0].scores.value}<span class="unit">/100</span>`
-      : '—';
+    document.getElementById('stat-best-value').innerHTML = sortedByValue.length ? `${sortedByValue[0].scores.value}<span class="unit">/100</span>` : '—';
     document.getElementById('stat-updated').textContent = formatUpdated(data.lastUpdated);
-    document.getElementById('eyebrow-meta').textContent =
-      `${data.competition || 'Eredivisie'} · Speelronde ${withOdds[0]?.matchday || ''} · ${allMatches.length} wedstrijden`;
-
-    if (sortedByValue.length) {
-      renderFeatured(sortedByValue[0]);
-    } else {
-      document.getElementById('featured-container').innerHTML = `
-        <div class="error">Nog geen odds beschikbaar voor deze speelronde.</div>`;
-    }
-
+    document.getElementById('eyebrow-meta').textContent = `${data.competition || 'Eredivisie'} · Speelronde ${withOdds[0]?.matchday || ''} · ${allMatches.length} wedstrijden`;
+    if (sortedByValue.length) renderFeatured(sortedByValue[0]);
+    else document.getElementById('featured-container').innerHTML = `<div class="error">Nog geen odds beschikbaar.</div>`;
     const featuredId = sortedByValue[0]?.id;
-    const gridMatches = allMatches
-      .filter(m => m.id !== featuredId)
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
+    const gridMatches = allMatches.filter(m => m.id !== featuredId).sort((a, b) => new Date(a.date) - new Date(b.date));
     renderGrid(gridMatches);
   }
 
   function renderFeatured(match) {
     const s = match.scores;
-    const home = match.homeTeam;
-    const away = match.awayTeam;
-    const bookieDisplay = (s.best.homeBookie === s.best.awayBookie && s.best.homeBookie === s.best.drawBookie)
-      ? s.best.homeBookie
-      : 'gespreid';
-
+    const home = match.homeTeam, away = match.awayTeam;
+    const bookieDisplay = (s.best.homeBookie === s.best.awayBookie && s.best.homeBookie === s.best.drawBookie) ? s.best.homeBookie : 'gespreid';
     document.getElementById('featured-container').innerHTML = `
       <div class="featured-match">
         <div class="featured-grid">
@@ -843,15 +839,9 @@
           </div>
           <div class="score-panel">
             <div class="score-panel-title">★ Edge Analyse</div>
-            <div class="score-row">
-              <span class="score-label">Value Index</span>
-              <span class="score-value">${s.value}<span class="out-of">/100</span></span>
-            </div>
+            <div class="score-row"><span class="score-label">Value Index</span><span class="score-value">${s.value}<span class="out-of">/100</span></span></div>
             <div class="score-bar"><div class="score-bar-fill" style="width: ${s.value}%"></div></div>
-            <div class="score-row">
-              <span class="score-label">Confidence Score</span>
-              <span class="score-value">${s.confidence}<span class="out-of">/100</span></span>
-            </div>
+            <div class="score-row"><span class="score-label">Confidence Score</span><span class="score-value">${s.confidence}<span class="out-of">/100</span></span></div>
             <div class="score-bar"><div class="score-bar-fill" style="width: ${s.confidence}%"></div></div>
             <div class="editor-tip">
               ${shortTip(match, s)} Onze AI ziet <strong style="color: var(--gold); font-style: normal;">${s.pick}</strong> als waarschijnlijkste uitkomst.
@@ -864,107 +854,60 @@
 
   function renderGrid(matches) {
     const container = document.getElementById('matches-container');
-    if (!matches.length) {
-      container.innerHTML = '';
-      container.style.border = 'none';
-      return;
-    }
+    if (!matches.length) { container.innerHTML = ''; container.style.border = 'none'; return; }
     container.innerHTML = matches.map(match => {
-      const home = match.homeTeam;
-      const away = match.awayTeam;
+      const home = match.homeTeam, away = match.awayTeam;
       const hasOdds = match.odds && match.odds.bestOdds;
-
       if (!hasOdds) {
         return `
-          <div class="match-card" onclick="openModal('upgrade')">
-            <div class="match-header">
-              <span>${formatDate(match.date)}</span>
-              <span>SPEELRONDE ${match.matchday || '—'}</span>
-            </div>
+          <div class="match-card" onclick="window.openModal('upgrade')">
+            <div class="match-header"><span>${formatDate(match.date)}</span><span>SPEELRONDE ${match.matchday || '—'}</span></div>
             <div class="match-teams">
-              <div class="match-team">
-                <div class="match-team-info">
-                  ${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
-                  <span class="match-team-name">${home.shortName || home.name}</span>
-                </div>
-                <span class="match-team-odds">—</span>
-              </div>
-              <div class="match-team">
-                <div class="match-team-info">
-                  ${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
-                  <span class="match-team-name">${away.shortName || away.name}</span>
-                </div>
-                <span class="match-team-odds">—</span>
-              </div>
+              <div class="match-team"><div class="match-team-info">${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}<span class="match-team-name">${home.shortName || home.name}</span></div><span class="match-team-odds">—</span></div>
+              <div class="match-team"><div class="match-team-info">${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}<span class="match-team-name">${away.shortName || away.name}</span></div><span class="match-team-odds">—</span></div>
             </div>
             <div class="match-no-odds">Odds nog niet beschikbaar</div>
           </div>
         `;
       }
-
       const s = match.scores;
       return `
-        <div class="match-card" onclick="openModal('upgrade')">
-          <div class="match-header">
-            <span>${formatDate(match.date)}</span>
-            <span>SPEELRONDE ${match.matchday || '—'}</span>
-          </div>
+        <div class="match-card" onclick="window.openModal('upgrade')">
+          <div class="match-header"><span>${formatDate(match.date)}</span><span>SPEELRONDE ${match.matchday || '—'}</span></div>
           <div class="match-teams">
             <div class="match-team">
-              <div class="match-team-info">
-                ${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
-                <span class="match-team-name">${home.shortName || home.name}</span>
-              </div>
+              <div class="match-team-info">${home.crest ? `<img src="${home.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}<span class="match-team-name">${home.shortName || home.name}</span></div>
               <span class="match-team-odds ${s.bestOutcome === 'home' ? 'best' : ''}">${s.best.home.toFixed(2)}</span>
             </div>
-            <div class="match-draw">
-              <span class="match-draw-label">Gelijkspel</span>
-              <span class="match-draw-odds ${s.bestOutcome === 'draw' ? 'best' : ''}">${s.best.draw.toFixed(2)}</span>
-            </div>
+            <div class="match-draw"><span class="match-draw-label">Gelijkspel</span><span class="match-draw-odds ${s.bestOutcome === 'draw' ? 'best' : ''}">${s.best.draw.toFixed(2)}</span></div>
             <div class="match-team">
-              <div class="match-team-info">
-                ${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}
-                <span class="match-team-name">${away.shortName || away.name}</span>
-              </div>
+              <div class="match-team-info">${away.crest ? `<img src="${away.crest}" class="match-team-crest" onerror="this.style.display='none'">` : ''}<span class="match-team-name">${away.shortName || away.name}</span></div>
               <span class="match-team-odds ${s.bestOutcome === 'away' ? 'best' : ''}">${s.best.away.toFixed(2)}</span>
             </div>
           </div>
           <div class="match-scores">
-            <div class="match-score">
-              <span class="match-score-label">Value Index</span>
-              <span class="match-score-value">${s.value}<span class="out">/100</span></span>
-            </div>
-            <div class="match-score">
-              <span class="match-score-label">Confidence</span>
-              <span class="match-score-value">${s.confidence}<span class="out">/100</span></span>
-            </div>
+            <div class="match-score"><span class="match-score-label">Value Index</span><span class="match-score-value">${s.value}<span class="out">/100</span></span></div>
+            <div class="match-score"><span class="match-score-label">Confidence</span><span class="match-score-value">${s.confidence}<span class="out">/100</span></span></div>
           </div>
           <div class="match-tip">${shortTip(match, s)}</div>
-          <div class="match-cta">
-            <span class="match-bookmaker">BESTE 1: ${s.best.homeBookie.toUpperCase()}</span>
-            <span class="match-unlock">
-              <span class="lock"></span>
-              Volledige analyse
-            </span>
-          </div>
+          <div class="match-cta"><span class="match-bookmaker">BESTE 1: ${s.best.homeBookie.toUpperCase()}</span><span class="match-unlock"><span class="lock"></span>Volledige analyse</span></div>
         </div>
       `;
     }).join('');
   }
 
   function renderError(msg) {
-    const fc = document.getElementById('featured-container');
-    const mc = document.getElementById('matches-container');
-    fc.innerHTML = `
+    document.getElementById('featured-container').innerHTML = `
       <div class="error" style="padding: 60px 20px; border: 1px solid var(--border); border-radius: 4px;">
         <div style="font-family: var(--font-mono); font-size: 11px; color: var(--amber); letter-spacing: 0.15em; margin-bottom: 12px;">⚠ DATA TIJDELIJK NIET BESCHIKBAAR</div>
         <p style="color: var(--text-dim);">${msg}</p>
-      </div>
-    `;
-    mc.innerHTML = '';
-    mc.style.border = 'none';
+      </div>`;
+    const mc = document.getElementById('matches-container');
+    mc.innerHTML = ''; mc.style.border = 'none';
   }
 
+  // ============ INIT ============
+  await refreshAuthState();
   loadData();
 </script>
 
