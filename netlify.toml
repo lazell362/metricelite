@@ -23,3 +23,6 @@
   to = "https://tipstersledger.com/:splat"
   status = 301
   force = true
+
+[functions."stripe-webhook"]
+  included_files = []
