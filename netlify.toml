@@ -11,3 +11,15 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type"
+
+[[redirects]]
+  from = "https://metricelite.com/*"
+  to = "https://tipstersledger.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.metricelite.com/*"
+  to = "https://tipstersledger.com/:splat"
+  status = 301
+  force = true
