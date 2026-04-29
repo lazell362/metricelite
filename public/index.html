@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MetricElite — De kunst van het inzicht</title>
+<title>TipstersLedger — De kunst van het inzicht</title>
 <meta name="description" content="Datagedreven AI-intelligence voor de Eredivisie. Voor wie verder kijkt dan de uitslag.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,8 +61,8 @@
     display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
   .logo { display: flex; align-items: baseline; gap: 2px; text-decoration: none; letter-spacing: -0.02em; }
-  .logo-metric { font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--text); font-style: italic; font-variation-settings: "opsz" 144; }
-  .logo-elite { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--gold); font-variation-settings: "opsz" 144; }
+  .logo-tipsters { font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--text); font-style: italic; font-variation-settings: "opsz" 144; }
+  .logo-ledger { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--gold); font-variation-settings: "opsz" 144; }
   .logo-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; margin-left: 6px; align-self: center; transform: translateY(-6px); }
 
   nav.main-nav { display: flex; gap: 32px; align-items: center; }
@@ -297,7 +297,7 @@
 <header>
   <div class="header-inner">
     <a href="/" class="logo">
-      <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
+      <span class="logo-tipsters">Tipsters</span><span class="logo-ledger">Ledger</span>
       <span class="logo-dot"></span>
     </a>
     <nav class="main-nav">
@@ -323,7 +323,7 @@
       <em>inzicht.</em>
     </h1>
     <p class="hero-sub">
-      MetricElite combineert live odds van vier topbookmakers met datagedreven AI-analyse.
+      TipstersLedger combineert live odds van vier topbookmakers met datagedreven AI-analyse.
       Voor wie verder kijkt dan de uitslag.
     </p>
   </section>
@@ -381,7 +381,7 @@
 
     <div class="form-group">
       <label class="form-label">E-mailadres</label>
-      <input type="email" class="form-input" id="login-email" placeholder="jij@metricelite.com" autocomplete="email">
+      <input type="email" class="form-input" id="login-email" placeholder="jij@tipstersledger.com" autocomplete="email">
     </div>
     <div class="form-group">
       <label class="form-label">Wachtwoord</label>
@@ -414,7 +414,7 @@
 
     <div class="form-group">
       <label class="form-label">E-mailadres</label>
-      <input type="email" class="form-input" id="signup-email" placeholder="jij@metricelite.com" autocomplete="email">
+      <input type="email" class="form-input" id="signup-email" placeholder="jij@tipstersledger.com" autocomplete="email">
     </div>
     <div class="form-group">
       <label class="form-label">Wachtwoord (min. 8 tekens)</label>
@@ -433,7 +433,7 @@
 <div class="modal-overlay" id="modal-upgrade">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('upgrade')">×</button>
-    <div class="modal-eyebrow">★ MetricElite Premium</div>
+    <div class="modal-eyebrow">★ TipstersLedger Premium</div>
     <h2 class="modal-title">Het <em>volledige</em> inzicht.</h2>
     <p class="modal-sub">
       Diepere statistieken, AI-voorspellingen per uitkomst, form-trends en exclusieve insights.
@@ -459,7 +459,7 @@
   <div class="footer-inner">
     <div class="footer-col">
       <a href="/" class="logo" style="margin-bottom: 16px;">
-        <span class="logo-metric">Metric</span><span class="logo-elite">Elite</span>
+        <span class="logo-tipsters">Tipsters</span><span class="logo-ledger">Ledger</span>
         <span class="logo-dot"></span>
       </a>
       <p>Datagedreven AI-intelligence voor wie de markt serieus neemt. Eredivisie eerst, daarna Europa.</p>
@@ -488,9 +488,9 @@
   </div>
   <div class="footer-disclaimer">
     <strong>Verantwoord deelnemen — 18+ Wat kost het jou?</strong>
-    MetricElite biedt informatieve analyses, geen garanties. Deelname kan verslavend zijn.
+    TipstersLedger biedt informatieve analyses, geen garanties. Deelname kan verslavend zijn.
     Speel bewust en alleen met geld dat je kunt missen. Hulp nodig? Bel <strong>0900-2177721</strong> (Loket Kansspel).
-    © 2026 MetricElite. Alle rechten voorbehouden.
+    © 2026 TipstersLedger. Alle rechten voorbehouden.
     <span style="margin-left: 16px; opacity: 0.5;">·</span>
     <a href="#" onclick="window.resetSession(); return false;" style="color: var(--text-faint); text-decoration: none; margin-left: 8px;">Sessie resetten</a>
   </div>
@@ -662,7 +662,7 @@
     } else {
       // Sessie direct aan (e-mail verificatie uit)
       closeModal('signup');
-      showToast('success', 'Welkom bij MetricElite.');
+      showToast('success', 'Welkom bij TipstersLedger.');
       await refreshAuthState();
     }
   };
